@@ -8,7 +8,6 @@ public class SCO_TileData : ScriptableObject
 {
     [Header("Prefabs")]
     public GameObject tilePrefabs;
-    public SynergyTile[] synergysPossibles;
 
     [Header("Type Construction")]
     public TypeTile typeTile;
@@ -26,14 +25,4 @@ public enum TypeTile
 {
     Building,
     Tower,
-}
-
-[System.Serializable]
-public class SynergyTile
-{
-    public SCO_TileData tileReferences;
-
-    public float attackDamageGiven;
-    public float attackSpeedGiven;
-    public float healthGiven;
 }

@@ -8,11 +8,6 @@ public class PauseManager : MonoBehaviour
     public GameObject pausePanelGO;
     public GameObject settingsPanel;
 
-    public CameraController cameraController;
-
-    public GameObject tutorialPanel;
-
-    public InteractiveButton firstButtonInMenu;
     Animator pausePanelAnim;
 
     public ParticleSystem[] particlesToCheck;
@@ -20,10 +15,12 @@ public class PauseManager : MonoBehaviour
 
     public bool isOnMenu = false;
 
+    CameraController cameraController;
     GameStateManager gameStateManager;
 
     private void Awake()
     {
+        cameraController = FindFirstObjectByType<CameraController>();
         gameStateManager = FindFirstObjectByType<GameStateManager>();
     }
 
@@ -57,8 +54,6 @@ public class PauseManager : MonoBehaviour
         isOnMenu = false;
 
         SetParticleState(false);
-
-        tutorialPanel.SetActive(false);
 
         pausePanelAnim.SetBool("IsOpen", false);
         StartCoroutine(ClosePausePanel());
@@ -96,12 +91,7 @@ public class PauseManager : MonoBehaviour
 
     public void TutorialButton()
     {
-        tutorialPanel.SetActive(!tutorialPanel.activeSelf);
-        if(tutorialPanel.activeSelf == false && pausePanelGO.activeSelf == false)
-        {
-            gameStateManager.ResumeGameState();
-            cameraController.enabled = true;
-        }
+        Debug.LogWarning("Launch tutorial scene");
     }
 
     IEnumerator ClosePausePanel()

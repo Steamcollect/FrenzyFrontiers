@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using UnityEditor;
 
-[CustomEditor(typeof(EnnemySpawnerGestionary))]
+[CustomEditor(typeof(EnemySpawnerGestionary))]
 public class EditorWave : Editor
 {
     #region SerializedProperty
@@ -34,7 +34,7 @@ public class EditorWave : Editor
 
     public override void OnInspectorGUI()
     {
-        var ennemyManager = (EnnemySpawnerGestionary)target;
+        var ennemyManager = (EnemySpawnerGestionary)target;
 
         serializedObject.Update();
 

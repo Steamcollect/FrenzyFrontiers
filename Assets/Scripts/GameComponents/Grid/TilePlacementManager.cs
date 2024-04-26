@@ -25,7 +25,7 @@ public class TilePlacementManager : MonoBehaviour
     InputManager inputManager;
     CameraController cameraController;
     GameStateManager gameStateManager;
-    EnnemySpawnerGestionary ennemySpawner;
+    EnemySpawnerGestionary ennemySpawner;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class TilePlacementManager : MonoBehaviour
         inputManager = FindFirstObjectByType<InputManager>();
         cameraController = FindFirstObjectByType<CameraController>();
         gameStateManager = FindFirstObjectByType<GameStateManager>();
-        ennemySpawner = FindFirstObjectByType<EnnemySpawnerGestionary>();
+        ennemySpawner = FindFirstObjectByType<EnemySpawnerGestionary>();
     }
 
     private void Start()
