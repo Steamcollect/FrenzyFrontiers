@@ -21,12 +21,12 @@ public class Defense_ArcherTower : Defenses
         //Attack
         print(attackPoint.rotation.eulerAngles);
         Projectile_Arrow currentProjectile = Instantiate(bulletPrefabs, attackPoint.position, attackPoint.rotation).GetComponent<Projectile_Arrow>();
-        currentProjectile.initialVelocity = bulletVelocity;
+        currentProjectile.initialVelocity = _stats.bulletVelocity;
         currentProjectile.initialAngle = angle;
         currentProjectile.initialTargetPos = targetPos;
         currentProjectile.initialPosition = attackPoint.position;
         currentProjectile.targetTag = "Enemy";
-        currentProjectile.damage = attackDamage;
+        currentProjectile.damage = _stats.attackDamage;
 
         currentProjectile.Move();
     }

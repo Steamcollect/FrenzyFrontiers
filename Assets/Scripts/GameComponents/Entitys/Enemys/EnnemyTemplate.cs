@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(LifeEnnemyComponent))]
 public class EnnemyTemplate : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected RSE_EnnemyRequest _rseRequestTargetLink;
-    [SerializeField] protected SCO_EnnemyCaracteristic caracteristic;
+    [FormerlySerializedAs("caracteristic")] [SerializeField] protected SCO_EnemyCharacteristic characteristic;
     [SerializeField] protected LifeSystem lifeSystem;
 
     protected Vector3 targetPos;
@@ -21,7 +22,7 @@ public class EnnemyTemplate : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (caracteristic == null) throw new ArgumentNullException("Caracteristic monster not assign");
+        if (characteristic == null) throw new ArgumentNullException("Caracteristic monster not assign");
     }
 
     protected void Start()
@@ -68,7 +69,7 @@ public class EnnemyTemplate : MonoBehaviour
         { 
             targetPos = newTarget;
 
-            targetPos += (transform.position - newTarget).normalized * caracteristic.rangeAttack;
+            targetPos += (transform.position - newTarget).normalized * characteristic.rangeAttack;
 
             this.target = target;
 
@@ -87,7 +88,7 @@ public class EnnemyTemplate : MonoBehaviour
         {
             if(anim) anim.SetTrigger("Attack");
 
-            if (target.TryGetComponent<IDamage>(out IDamage component)) component.TakeDamage(caracteristic.attackDamage);
+            if (target.TryGetComponent<IDamage>(out IDamage component)) component.TakeDamage(characteristic.attackDamage);
             else Debug.LogWarning("hit miss");
         }
         else
@@ -108,11 +109,11 @@ public class EnnemyTemplate : MonoBehaviour
         {
             case StateEnnemy.Attack:
                 action = ()=> Attack();
-                time = caracteristic.cooldownAttack;
+                time = characteristic.cooldownAttack;
                 break;
             case StateEnnemy.Walk:
                 action = () => _rseRequestTargetLink?.Call(this);
-                time = caracteristic.cooldownAttack;
+                time = characteristic.cooldownAttack;
                 break;
             default:
                 action = () => Destroy(gameObject);
@@ -125,7 +126,7 @@ public class EnnemyTemplate : MonoBehaviour
     protected virtual void MoveToTarget()
     {
         transform.LookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z));
-        float time = Vector3.Distance(targetPos, transform.position) / caracteristic.walkSpeed;
+        float time = Vector3.Distance(targetPos, transform.position) / characteristic.walkSpeed;
         if (anim) anim.SetBool("IsRunning", true);
         transform.DOMove(targetPos, time).SetEase(Ease.Linear).OnComplete(() =>
         {

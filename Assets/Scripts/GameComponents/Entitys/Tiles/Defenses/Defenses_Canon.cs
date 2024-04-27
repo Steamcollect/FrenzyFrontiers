@@ -18,10 +18,10 @@ public class Defenses_Canon : Defenses
     {
         //Attack
         Projectile currentProjectile = Instantiate(bulletPrefabs, attackPoint.position, attackPoint.rotation).GetComponent<Projectile>();
-        currentProjectile.initialVelocity = bulletVelocity;
+        currentProjectile.initialVelocity = _stats.bulletVelocity;
         currentProjectile.initialDirection = attackPoint.forward;
         currentProjectile.targetTag = "Enemy";
-        currentProjectile.damage = attackDamage;
+        currentProjectile.damage = _stats.attackDamage;
         currentProjectile.Move();
     }
 

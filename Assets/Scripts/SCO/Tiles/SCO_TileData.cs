@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "DataTile", menuName = "ScriptableObjects/DataTile")]
+[CreateAssetMenu(fileName = "TileData", menuName = "ScriptableObjects/TileData")]
 public class SCO_TileData : ScriptableObject
 {
     [Header("Prefabs")]
     public GameObject tilePrefabs;
-    public SynergyTile[] synergysPossibles;
+    [HideInInspector] public SynergyTile[] synergysPossibles;
 
     [Header("Type Construction")]
     public TypeTile typeTile;
-    public TypeTile[] typeNeedToBuild;
+    [HideInInspector] public TypeTile[] typeNeedToBuild;
 
-    [Header("Caracteristic shuffle")]
+    [Header("Characteristic shuffle")]
     public EnemyType[] tileEnemyAccess;
     public float powerTile;
     [Range(0f,100f)] public float raretyCardSpawn;

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnnemyCaracteristic",menuName = "ScriptableObjects/EnnemyCaracteristic")]
-public class SCO_EnnemyCaracteristic : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyCharacteristic",menuName = "ScriptableObjects/EnemyCharacteristic")]
+public class SCO_EnemyCharacteristic : ScriptableObject
 {
     public float attackDamage;
     public float walkSpeed;

@@ -23,7 +23,7 @@ public class DefensesManager : MonoBehaviour
             if (defences[i].target == null) defences[i].target = defences[i].FindTarget();
             else
             {
-                if (Vector3.Distance(defences[i].transform.position, defences[i].target.position) > defences[i].attackRange * 1.1f)
+                if (Vector3.Distance(defences[i].transform.position, defences[i].target.position) > defences[i]._stats.attackRange * 1.1f)
                 {
                     defences[i].target = null;
                     return;

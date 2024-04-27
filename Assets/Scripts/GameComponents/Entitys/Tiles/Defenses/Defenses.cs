@@ -4,10 +4,7 @@ using UnityEngine;
 
 public abstract class Defenses : MonoBehaviour
 {
-    public int attackDamage;
-    public float attackRange;
-    public float attackCooldown;
-    public float bulletVelocity;
+    public SCO_TowerStats _stats;
 
     public bool canAttack = true;
 
@@ -30,7 +27,7 @@ public abstract class Defenses : MonoBehaviour
         Collider hit = null;
         float minDist = 999;
 
-        Collider[] collidHit = Physics.OverlapSphere(transform.position, attackRange);
+        Collider[] collidHit = Physics.OverlapSphere(transform.position, _stats.attackRange);
 
         foreach (Collider current in collidHit)
         {
@@ -55,13 +52,13 @@ public abstract class Defenses : MonoBehaviour
     {
         canAttack = false;
 
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(_stats.attackCoolDown);
 
         canAttack = true;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, _stats.attackRange);
     }
 }

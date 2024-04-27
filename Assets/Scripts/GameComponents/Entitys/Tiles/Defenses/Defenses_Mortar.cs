@@ -25,12 +25,12 @@ public class Defenses_Mortar : Defenses
         anim.SetTrigger("Attack");
 
         Projectile_Bombe currentProjectile = Instantiate(bulletPrefabs, attackPoint.position, attackPoint.rotation).GetComponent<Projectile_Bombe>();
-        currentProjectile.initialVelocity = bulletVelocity;
+        currentProjectile.initialVelocity = _stats.bulletVelocity;
         currentProjectile.initialAngle = angle;
         currentProjectile.initialTargetPos = targetPos;
         currentProjectile.initialPosition = attackPoint.position;
         currentProjectile.targetTag = "Enemy";
-        currentProjectile.damage = attackDamage;
+        currentProjectile.damage = _stats.attackDamage;
 
         currentProjectile.Move();
     }
