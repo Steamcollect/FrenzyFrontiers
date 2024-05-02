@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2944613038097429659}
   - component: {fileID: 4710817414004579226}
   - component: {fileID: 6991628402535109482}
-  - component: {fileID: 7383919027993448229}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -31,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5975246074004700922}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4710817414004579226
@@ -63,18 +63,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanelGO: {fileID: 0}
   settingsPanel: {fileID: 0}
-  cameraController: {fileID: 0}
-  tutorialPanel: {fileID: 0}
-  firstButtonInMenu: {fileID: 0}
   particlesToCheck: []
   isOnMenu: 0
---- !u!114 &7383919027993448229
+--- !u!1 &7823959549584386454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5975246074004700922}
+  - component: {fileID: 634241831779703879}
+  m_Layer: 0
+  m_Name: TutoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5975246074004700922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7823959549584386454}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2944613038097429659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &634241831779703879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7172900101679837461}
+  m_GameObject: {fileID: 7823959549584386454}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc63a5e12aa4f141afe60bca87ae62c, type: 3}
@@ -82,9 +111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchTutorial: 0
   tutorialAnim: {fileID: 0}
-  pauseManager: {fileID: 0}
-  tilePlacementManager: {fileID: 0}
-  cameraController: {fileID: 0}
   moveSlider: {fileID: 0}
   rotateSlider: {fileID: 0}
   zoomSlider: {fileID: 0}

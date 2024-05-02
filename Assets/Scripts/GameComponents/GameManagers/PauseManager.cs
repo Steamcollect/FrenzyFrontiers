@@ -7,33 +7,26 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanelGO;
     public GameObject settingsPanel;
-
-    Animator pausePanelAnim;
-
-    public ParticleSystem[] particlesToCheck;
     bool pauseResumeInput;
 
     public bool isOnMenu = false;
 
     CameraController cameraController;
-    GameStateManager gameStateManager;
+    [SerializeField] GameStateManager gameStateManager;
 
     private void Awake()
     {
         cameraController = FindFirstObjectByType<CameraController>();
-        gameStateManager = FindFirstObjectByType<GameStateManager>();
     }
 
     private void Start()
     {
-        //gameStateManager.PauseGameState();
-        pausePanelAnim = pausePanelGO.GetComponent<Animator>();
         pausePanelGO.SetActive(false);
     }
 
     private void Update()
     {
-        if (pauseResumeInput)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             switch (gameStateManager.gameState)
             {
@@ -52,10 +45,6 @@ public class PauseManager : MonoBehaviour
         gameStateManager.ResumeGameState();
 
         isOnMenu = false;
-
-        SetParticleState(false);
-
-        pausePanelAnim.SetBool("IsOpen", false);
         StartCoroutine(ClosePausePanel());
     }
     public void Pause()
@@ -63,35 +52,7 @@ public class PauseManager : MonoBehaviour
         gameStateManager.PauseGameState();
 
         isOnMenu = true;
-
-        SetParticleState(true);
-
         pausePanelGO.SetActive(true);
-        pausePanelAnim.SetBool("IsOpen", true);
-    }
-
-    void SetParticleState(bool stop)
-    {
-        if (stop)
-        {
-            for (int i = 0; i < particlesToCheck.Length; i++)
-            {
-                if (particlesToCheck[i].isPlaying) particlesToCheck[i].Pause();
-            }
-        }
-        else
-        {
-            for (int i = 0; i < particlesToCheck.Length; i++)
-            {
-                if (particlesToCheck[i].isPaused) particlesToCheck[i].Play();
-            }
-        }
-
-    }
-
-    public void TutorialButton()
-    {
-        Debug.LogWarning("Launch tutorial scene");
     }
 
     IEnumerator ClosePausePanel()

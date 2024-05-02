@@ -179,14 +179,12 @@ public class TilePlacementManager : MonoBehaviour
 
     void FillHandTile(int tileCount)
     {
-        print("hehe");
         ennemySpawner.PrepareNextWave();
 
         var tiles = Tool.ShuffleHand(tileCatalog.tilesInInventory, tileCount);
         print(tileCount);
         foreach (var tile in tiles)
         {
-            print(tile);
             tilesToPlace.Add(tile);
             GameObject currentTileVisual = Instantiate(tile.tilePrefabs, tilesVisualContent);
             currentTileVisual.transform.localPosition = new Vector3(0, -10, 0);

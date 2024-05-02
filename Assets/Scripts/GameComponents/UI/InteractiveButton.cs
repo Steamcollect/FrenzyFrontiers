@@ -19,7 +19,6 @@ public class InteractiveButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private void OnDisable()
     {
         transform.DOKill();
-
         if(image) image.DOKill();
         if(text) text.DOKill(); 
     }

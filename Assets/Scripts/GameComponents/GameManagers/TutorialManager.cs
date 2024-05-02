@@ -48,12 +48,14 @@ public class TutorialManager : MonoBehaviour
         else
         {
             tilePlacementManager.OnStart();
-            enabled = false;
+            gameObject.SetActive(false);
         }
     }
 
     private void Update()
     {
+        if (!launchTutorial) return;
+
         moveSlider.value = cameraController.tutorialMove;
         rotateSlider.value = cameraController.tutorialRotate;
         zoomSlider.value = cameraController.tutorialZoom;
