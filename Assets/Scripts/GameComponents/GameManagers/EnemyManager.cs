@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private RSE_EnnemyRequest _rseEnnemyRequestTarget;

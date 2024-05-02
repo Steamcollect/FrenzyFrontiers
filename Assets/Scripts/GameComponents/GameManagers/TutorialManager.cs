@@ -10,14 +10,21 @@ public class TutorialManager : MonoBehaviour
     [Header("References")]
     public Animator tutorialAnim;
 
-    public PauseManager pauseManager;
-    public TilePlacementManager tilePlacementManager;
-    public CameraController cameraController;
+    PauseManager pauseManager;
+    TilePlacementManager tilePlacementManager;
+    CameraController cameraController;
 
     public Slider moveSlider, rotateSlider, zoomSlider;
     public float moveTarget, rotateTarget, zoomTarget;
 
     bool canFillHand = true;
+
+    private void Awake()
+    {
+        pauseManager = FindFirstObjectByType<PauseManager>();
+        tilePlacementManager = FindFirstObjectByType<TilePlacementManager>();
+        cameraController = FindFirstObjectByType<CameraController>();
+    }
 
     private void Start()
     {
@@ -37,7 +44,12 @@ public class TutorialManager : MonoBehaviour
             cameraController.canReset = false;
 
             StartCoroutine(StartTutorial());
-        }        
+        }
+        else
+        {
+            tilePlacementManager.OnStart();
+            enabled = false;
+        }
     }
 
     private void Update()

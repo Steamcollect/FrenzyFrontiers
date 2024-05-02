@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class EnnemySpawnerGestionary : MonoBehaviour
+public class EnemySpawnerGestionary : MonoBehaviour
 {
     [SerializeField] private bool modDebug = false;
 
