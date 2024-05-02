@@ -100,6 +100,13 @@ MonoBehaviour:
   indexInGrid: 0
   darkSmokeParticle: {fileID: 5011930112156056001}
   greySmokePaticle: {fileID: 2464775200140820223}
+  DestroySound:
+  - {fileID: 8300000, guid: 1a04adcb3aafbd14f826f34fc7420673, type: 3}
+  - {fileID: 8300000, guid: f2a2d6eeb320de14ca242c811298fb89, type: 3}
+  - {fileID: 8300000, guid: e929b20fea8ca0d4d910de89ff51538a, type: 3}
+  - {fileID: 8300000, guid: 6e7b083f6367ff145a4c14ee3ff85266, type: 3}
+  - {fileID: 8300000, guid: 078bf000ca66d2446b6505a00f373690, type: 3}
+  - {fileID: 8300000, guid: 3314c2cca650b6547beb2ac2e0b0349e, type: 3}
 --- !u!1 &8511532232319714547
 GameObject:
   m_ObjectHideFlags: 0

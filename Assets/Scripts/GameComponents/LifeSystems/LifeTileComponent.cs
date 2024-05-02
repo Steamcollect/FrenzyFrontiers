@@ -1,7 +1,7 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LifeTileComponent : LifeSystem
@@ -11,10 +11,14 @@ public class LifeTileComponent : LifeSystem
 
     [SerializeField] ParticleSystem darkSmokeParticle, greySmokePaticle;
 
+    public AudioClip[] DestroySound;
+
     protected override void CheckDeath()
     {
         if (currentHealth <= 0)
         {
+            AudioManager.instance.PlayClipAt(DestroySound.ToList().GetRandom(), 1, transform.position);
+
             transform.DOKill();
             onDeath?.Invoke(indexInGrid);
         }

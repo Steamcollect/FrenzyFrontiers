@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class TilePlacementManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class TilePlacementManager : MonoBehaviour
 
     List<Transform> tilesToPlaceVisual = new List<Transform>();
     List<SCO_TileData> tilesToPlace = new List<SCO_TileData>();
+
+    public AudioClip[] tileMoveClips;
+    public AudioClip[] tilePlaceClips;
 
     int currentPlacementSelectedIndex = -1;
 
@@ -87,6 +91,8 @@ public class TilePlacementManager : MonoBehaviour
     }
     void CreateNewTile()
     {
+        AudioManager.instance.PlayClipAt(tilePlaceClips.ToList().GetRandom(), 0, Vector3.zero);
+
         // Change the name of the tile
         nextTileToPlaceVisual.name = tilesToPlace[0].tilePrefabs.name;
 
@@ -96,7 +102,7 @@ public class TilePlacementManager : MonoBehaviour
 
         // Reset the next tile rotation
         float[] tmp = { 0, 60, 120, 180, 240, 300 };
-        tileToPlaceRotation = tmp[Random.Range(0, tmp.Length)];
+        tileToPlaceRotation = tmp.ToList().GetRandom();
 
         tilesToPlace.Remove(tilesToPlace[0]);
         tilesToPlaceVisual[0].transform.DOKill();
@@ -135,7 +141,11 @@ public class TilePlacementManager : MonoBehaviour
                             defense.detectionRangeVisual.SetActive(true);
                         }
                     }
-                    else nextTileToPlaceVisual.transform.position = hexagonalGrid.hexagones[currentPlacementSelectedIndex].axialPos;
+                    else
+                    {
+                        nextTileToPlaceVisual.transform.position = hexagonalGrid.hexagones[currentPlacementSelectedIndex].axialPos;
+                        AudioManager.instance.PlayClipAt(tileMoveClips.ToList().GetRandom(), 0, Vector3.zero);
+                    }
 
                     if (!nextTileToPlaceVisual.activeSelf) nextTileToPlaceVisual.SetActive(true);
                 }

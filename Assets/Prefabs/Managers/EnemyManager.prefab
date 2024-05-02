@@ -45,13 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47165af404e5974d96cc8c1809ed8f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modDebug: 0
-  currentWave: 0
   waveSettings: {fileID: 11400000, guid: 32f0e674bb261234387cb17bb7618f2b, type: 2}
-  nbSpawnPoint: 0
-  nbMonsterSpawn: 0
-  radiusCircle: 0
-  ennemyList: []
+  waveAnnouncementClips:
+  - {fileID: 8300000, guid: 3e601da2ed9988f4c8932c97e10ff0a9, type: 3}
+  - {fileID: 8300000, guid: c75cd4628eea48043a972730afb274a2, type: 3}
+  - {fileID: 8300000, guid: de42a91cd64fd0244b3c09af10e09eb1, type: 3}
 --- !u!114 &7854226299244205913
 MonoBehaviour:
   m_ObjectHideFlags: 0

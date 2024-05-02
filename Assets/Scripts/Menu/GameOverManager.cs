@@ -9,6 +9,8 @@ public class GameOverManager : MonoBehaviour
 
     public GameObject deathPanel;
 
+    public AudioClip loseSound;
+
     public static GameOverManager instance;
 
     private void Awake()
@@ -18,6 +20,8 @@ public class GameOverManager : MonoBehaviour
 
     public void SetPanel(int wave, int score)
     {
+        AudioManager.instance.PlayClipAt(loseSound, 0, Vector2.zero);
+
         waveTxt.text = "Wave max : " + wave.ToString();
         scoreTxt.text = "Score : " + score.ToString();
 

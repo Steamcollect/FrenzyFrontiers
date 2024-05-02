@@ -7,16 +7,18 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemySpawnerGestionary : MonoBehaviour
 {
-    [SerializeField] private bool modDebug = false;
+    private bool modDebug = false;
 
-    [SerializeField] private int currentWave;
+    private int currentWave;
     [SerializeField] private SCO_EnnemyWave waveSettings;
 
-    [SerializeField] private int nbSpawnPoint;
-    [SerializeField] private int nbMonsterSpawn;
-    [SerializeField] private float radiusCircle;
+    private int nbSpawnPoint;
+    private int nbMonsterSpawn;
+    private float radiusCircle;
 
-    [SerializeField] private List<EnnemyGroup> ennemyList = new List<EnnemyGroup>();
+    [SerializeField] AudioClip[] waveAnnouncementClips;
+
+    private List<EnnemyGroup> ennemyList = new List<EnnemyGroup>();
     
     private GameObject gameObjectGroup;
 
@@ -103,6 +105,8 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void ShowNextWave()
     {
+        AudioManager.instance.PlayClipAt(waveAnnouncementClips.ToList().GetRandom(), 0, Vector3.zero);
+
         ScoreManager.instance?.NewWave();
         foreach (var group in ennemyList)
         {

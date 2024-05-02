@@ -41,6 +41,28 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //public IEnumerator ChangeMusic(AudioClip music)
+    //{
+    //    float volum;
+    //}
+    float LinearToDB(float volum)
+    {
+        float dB;
+
+        if (volum != 0)
+            dB = 20.0f * Mathf.Log10(volum);
+        else
+            dB = -144.0f;
+
+        return dB;
+    }
+
+    /// <summary>
+    /// spatial blend : 0 = 2D, 1 = 3D
+    /// </summary>
+    /// <param name="clip"></param>
+    /// <param name="spatialBlend"></param>
+    /// <param name="pos"></param>
     public void PlayClipAt(AudioClip clip, float spatialBlend, Vector3 pos)
     {
         AudioSource tmpAudioSource;

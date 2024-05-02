@@ -11,7 +11,6 @@ public class HexagonalGrid : MonoBehaviour
     public List<int> placementTiles = new List<int>();
     public float farthestHexagoneDistance;
 
-    public GameObject tileGo;
     public GameObject vectorGo;
 
     DefensesManager defensesManager;

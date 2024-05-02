@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4303095086357238445}
   - component: {fileID: 2025614545098215650}
   - component: {fileID: 5913690957769481805}
+  - component: {fileID: 3596459873241910368}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4454357658291247880}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50,7 +51,6 @@ MonoBehaviour:
   hexagoneTiles: 
   placementTiles: 
   farthestHexagoneDistance: 0
-  tileGo: {fileID: 0}
   vectorGo: {fileID: 0}
 --- !u!114 &5913690957769481805
 MonoBehaviour:
@@ -67,3 +67,28 @@ MonoBehaviour:
   tilesVisualContent: {fileID: 0}
   tilesVisualSpacing: -0.5
   tileToPlaceCount: 5
+  tileMoveClips:
+  - {fileID: 8300000, guid: 4f7f0bb322116984c87fc778241a7610, type: 3}
+  - {fileID: 8300000, guid: 6ae84daab9d7ed545b997fe455e41ba7, type: 3}
+  - {fileID: 8300000, guid: 9f0b434a2b069454ba55e1c2eb1fa40a, type: 3}
+  - {fileID: 8300000, guid: fd5e775d9d0aa3b45bba7765e1c0ccb6, type: 3}
+  - {fileID: 8300000, guid: 1a83187a966bd8b40a85684603601ac1, type: 3}
+  tilePlaceClips:
+  - {fileID: 8300000, guid: a79c77924f6d3874ba3b5ff187eb3c0c, type: 3}
+  - {fileID: 8300000, guid: 437e4c9f5d2357442af1431a7f612b01, type: 3}
+  - {fileID: 8300000, guid: 9f4febb41fc832b4ca439482b4970ba0, type: 3}
+--- !u!114 &3596459873241910368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4454357658291247880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7210bf0f21452ba469646852c30b1064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilesInInventory: []
+  tilesExist: []
+  hdvTile: {fileID: 11400000, guid: f226d4eba11339549a2bf9e052f13613, type: 2}

@@ -20,6 +20,8 @@ public class EnnemyTemplate : MonoBehaviour
     [SerializeField] Animator anim;
     public StateEnnemy currentState { get; protected set; } = StateEnnemy.Walk;
 
+    public AudioClip[] attackSounds;
+
     protected virtual void Awake()
     {
         if (characteristic == null) throw new ArgumentNullException("Caracteristic monster not assign");
@@ -86,7 +88,9 @@ public class EnnemyTemplate : MonoBehaviour
     {
         if (target != null)
         {
-            if(anim) anim.SetTrigger("Attack");
+            AudioManager.instance.PlayClipAt(attackSounds.ToList().GetRandom(), 1, transform.position);
+
+            if (anim) anim.SetTrigger("Attack");
 
             if (target.TryGetComponent<IDamage>(out IDamage component)) component.TakeDamage(characteristic.attackDamage);
             else Debug.LogWarning("hit miss");

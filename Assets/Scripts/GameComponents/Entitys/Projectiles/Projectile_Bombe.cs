@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Projectile_Bombe : Projectile
 {
@@ -12,6 +13,8 @@ public class Projectile_Bombe : Projectile
     public Vector3 initialPosition;
 
     public GameObject eplosionEffect;
+
+    public AudioClip[] explosionSound;
 
     public override void Move()
     {
@@ -76,6 +79,7 @@ public class Projectile_Bombe : Projectile
 
     void Explode()
     {
+        AudioManager.instance.PlayClipAt(explosionSound.ToList().GetRandom(), 1, transform.position);
         Instantiate(eplosionEffect, transform.position, transform.rotation);
 
         Collider[] collidHit = Physics.OverlapSphere(transform.position, explosionRange);
