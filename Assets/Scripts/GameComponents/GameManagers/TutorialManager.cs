@@ -24,6 +24,8 @@ public class TutorialManager : MonoBehaviour
     public Slider moveSlider, rotateSlider, zoomSlider, tilePlacesCountSlider;
     float moveTarget, rotateTarget, zoomTarget;
 
+    int currentState = 0;
+
     public AudioClip popUpSound;
 
     public static TutorialManager instance;
@@ -79,10 +81,10 @@ public class TutorialManager : MonoBehaviour
         rotateSlider.value = cameraController.tutorialRotate;
         zoomSlider.value = cameraController.tutorialZoom;
 
-        if (cameraController.tutorialMove >= moveTarget) OnMove();
-        if (cameraController.tutorialRotate >= rotateTarget) OnRotate();
-        if (cameraController.tutorialZoom >= zoomTarget) OnZoom();
-        if(cameraController.tutorialReset) StartCoroutine(OnCameraReset());
+        if (cameraController.tutorialMove >= moveTarget && currentState == 0) OnMove();
+        if (cameraController.tutorialRotate >= rotateTarget && currentState == 1) OnRotate();
+        if (cameraController.tutorialZoom >= zoomTarget && currentState == 2) OnZoom();
+        if(cameraController.tutorialReset && currentState == 3) StartCoroutine(OnCameraReset());
     }
 
     IEnumerator StartTutorial()
@@ -98,8 +100,8 @@ public class TutorialManager : MonoBehaviour
 
     void OnMove()
     {
+        currentState = 1;
         movePanel.SetActive(false);
-
 
         PlayPopUpSound();
         rotatePanel.SetActive(true);
@@ -109,6 +111,8 @@ public class TutorialManager : MonoBehaviour
     }
     void OnRotate()
     {
+        currentState = 2;
+
         rotatePanel.SetActive(false);
 
         PlayPopUpSound();
@@ -118,7 +122,9 @@ public class TutorialManager : MonoBehaviour
         cameraController.canZoom = true;
     }
     void OnZoom()
-    {      
+    {
+        currentState = 3;
+
         zoomPanel.SetActive(false);
 
         PlayPopUpSound();
@@ -129,6 +135,8 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator OnCameraReset()
     {
+        currentState = 4;
+
         cameraController.enabled = false;
 
         centerPanel.SetActive(false);
