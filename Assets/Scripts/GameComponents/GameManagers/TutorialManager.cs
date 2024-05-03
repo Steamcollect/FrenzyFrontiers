@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -14,23 +14,26 @@ public class TutorialManager : MonoBehaviour
     public GameObject centerPanel;
     public GameObject inventoryPanel;
     public GameObject placeTilePanel;
+    public GameObject placeAllTilePanel;
+    public GameObject survivNightPanel;
+    public GameObject finalpanelPanel;
 
-    PauseManager pauseManager;
     TilePlacementManager tilePlacementManager;
     CameraController cameraController;
 
-    public Slider moveSlider, rotateSlider, zoomSlider;
-    public float moveTarget, rotateTarget, zoomTarget;
+    public Slider moveSlider, rotateSlider, zoomSlider, tilePlacesCountSlider;
+    float moveTarget, rotateTarget, zoomTarget;
 
     public AudioClip popUpSound;
 
-    bool canFillHand = true;
+    public static TutorialManager instance;
 
     private void Awake()
     {
-        pauseManager = FindFirstObjectByType<PauseManager>();
         tilePlacementManager = FindFirstObjectByType<TilePlacementManager>();
         cameraController = FindFirstObjectByType<CameraController>();
+
+        instance = this;
     }
 
     private void Start()
@@ -41,10 +44,16 @@ public class TutorialManager : MonoBehaviour
             rotatePanel.SetActive(false);
             zoomPanel.SetActive(false);
             centerPanel.SetActive(false);
+            inventoryPanel.SetActive(false);
+            placeTilePanel.SetActive(false);
+            placeAllTilePanel.SetActive(false);
+            survivNightPanel.SetActive(false);
+            finalpanelPanel.SetActive(false);
 
             moveSlider.value = 0;
             rotateSlider.value = 0;
             zoomSlider.value = 0;
+            tilePlacesCountSlider.value = 0;
 
             moveSlider.maxValue = moveTarget;
             rotateSlider.maxValue = rotateTarget;
@@ -66,56 +75,53 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (!launchTutorial) return;
-
         moveSlider.value = cameraController.tutorialMove;
         rotateSlider.value = cameraController.tutorialRotate;
         zoomSlider.value = cameraController.tutorialZoom;
 
-        if (cameraController.tutorialMove >= moveTarget) StartCoroutine(OnMove());
-        if (cameraController.tutorialRotate >= rotateTarget) StartCoroutine(OnRotate());
-        if (cameraController.tutorialZoom >= zoomTarget) StartCoroutine(OnZoom());
-        if(cameraController.tutorialReset && canFillHand) StartCoroutine(OnCameraReset());
+        if (cameraController.tutorialMove >= moveTarget) OnMove();
+        if (cameraController.tutorialRotate >= rotateTarget) OnRotate();
+        if (cameraController.tutorialZoom >= zoomTarget) OnZoom();
+        if(cameraController.tutorialReset) StartCoroutine(OnCameraReset());
     }
 
     IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1);
 
-        AudioManager.instance.PlayClipAt(popUpSound, 0, Vector2.zero);
+        PlayPopUpSound();
+
         movePanel.SetActive(true);
         movePanel.transform.Bump(1.08f);
         cameraController.canMove = true;
     }
 
-    IEnumerator OnMove()
+    void OnMove()
     {
-        yield return new WaitForSeconds(.5f);
-
         movePanel.SetActive(false);
-        
+
+
+        PlayPopUpSound();
         rotatePanel.SetActive(true);
         rotatePanel.transform.Bump(1.08f);
        
         cameraController.canRotate = true;
     }
-    IEnumerator OnRotate()
+    void OnRotate()
     {
-        yield return new WaitForSeconds(.5f);
-
         rotatePanel.SetActive(false);
-        
+
+        PlayPopUpSound();
         zoomPanel.SetActive(true);
         zoomPanel.transform.Bump(1.08f);
         
         cameraController.canZoom = true;
     }
-    IEnumerator OnZoom()
-    {
-        yield return new WaitForSeconds(.5f);
-        
+    void OnZoom()
+    {      
         zoomPanel.SetActive(false);
-        
+
+        PlayPopUpSound();
         centerPanel.SetActive(true);
         centerPanel.transform.Bump(1.08f);
         
@@ -123,7 +129,6 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator OnCameraReset()
     {
-        canFillHand = false;
         cameraController.enabled = false;
 
         centerPanel.SetActive(false);
@@ -132,23 +137,65 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitForSeconds(.3f);
 
+        PlayPopUpSound();
         inventoryPanel.SetActive(true);
         inventoryPanel.transform.Bump(1.08f);
     }
     public void OnInventoryAgree()
     {
-        //tutorialAnim.SetTrigger("InventoryAgree");
-        cameraController.enabled = true;
-        print("check");
+        inventoryPanel.SetActive(false);
+
+        PlayPopUpSound();
+        placeTilePanel.SetActive(true);
+        placeTilePanel.transform.Bump(1.08f);
     }
 
     public void OnPlaceTileAgree()
     {
+        placeTilePanel.SetActive(false);
+        cameraController.enabled = true;
 
+        PlayPopUpSound();
+        placeAllTilePanel.SetActive(true);
+        placeAllTilePanel.transform.Bump(1.08f);
+    }
+    public void OnAllTilesPlace()
+    {
+        placeAllTilePanel.SetActive(false);
+        cameraController.enabled = false;
+
+        PlayPopUpSound();
+        survivNightPanel.SetActive(true);
+        survivNightPanel.transform.Bump(1.08f);
+    }
+    public void OnSurvivNightAgree()
+    {
+        cameraController.enabled = true;
+
+        survivNightPanel.SetActive(false);
+        GameStateManager.instance.ChangePhaseToFight();
     }
 
-    void FinishTutorial()
+    public IEnumerator OnNightEnd()
     {
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(.8f);
+
+        PlayPopUpSound();
+        finalpanelPanel.SetActive(true);
+        finalpanelPanel.transform.Bump(1.08f);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+    public void EndTutorial()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    void PlayPopUpSound()
+    {
+        AudioManager.instance.PlayClipAt(popUpSound, 0, Vector2.zero);
     }
 }

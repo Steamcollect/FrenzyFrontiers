@@ -59,7 +59,9 @@ public class EnemySpawnerGestionary : MonoBehaviour
         if (currentNbMonsterSpawn <= 0)
         {
             AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
-            gameStateManager.ChangePhaseToBuild();
+
+            if (TutorialManager.instance.launchTutorial) StartCoroutine(TutorialManager.instance.OnNightEnd());
+            else gameStateManager.ChangePhaseToBuild();
         }
     }
 
