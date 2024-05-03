@@ -56,6 +56,7 @@ public class GameStateManager : MonoBehaviour
 
     public void ChangePhaseToLoose()
     {
+        print("loose");
         ScoreManager.instance.SetGameOverPanel();
         gameEnd = true;
         gameState = GameState.Loose;

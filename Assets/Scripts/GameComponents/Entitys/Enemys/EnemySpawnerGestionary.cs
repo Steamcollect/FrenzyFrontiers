@@ -113,7 +113,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void ShowNextWave()
     {
-        print("heho");
         AudioManager.instance.PlayClipAt(waveAnnouncementClips.ToList().GetRandom(), 0, Vector3.zero);
 
         ScoreManager.instance?.NewWave();
@@ -161,8 +160,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private void SetGroupEnemySize()
     {
         nbMonsterSpawn = GetNbMonsterSpawn();
-        //Debug.Log(nbMonsterSpawn);
-        //Debug.Log(ennemyList.Count);
 
         var currentMonsterWave = 0;
         float rdValue = 0;
@@ -189,7 +186,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
             }
 
             ennemyList[i].area.AlignCenterInCenterArea(ref targetForward, ennemyList[i].ennemyGroup.Length);
-            ennemyList[i].area.GenerateArea(ref targetForward, ennemyList[i].ennemyGroup.Length/2, ennemyList[i].ennemyGroup.Length/2 , ennemyList[i].ennemyGroup.Length/2);
+            ennemyList[i].area.GenerateArea(ref targetForward, ennemyList[i].ennemyGroup.Length*0.6f, 0.1f , ennemyList[i].ennemyGroup.Length*0.6f);
         }
         currentNbMonsterSpawn = ennemyList.Sum(o => o.ennemyGroup.Length);
         
@@ -259,16 +256,17 @@ public class EnemySpawnerGestionary : MonoBehaviour
         UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, radiusCircle);
         foreach (EnnemyGroup group in ennemyList)
         {
-            //draw point center group
-            UnityEditor.Handles.color = Color.blue;
-            UnityEditor.Handles.DrawWireCube(group.area.center, Vector3.one *10f);
+            
+            
+            if (group.ennemyGroup.Count() > 0)
+            {
+                //draw point center group
+                UnityEditor.Handles.color = Color.blue;
+                UnityEditor.Handles.DrawWireCube(group.area.center, Vector3.one);
 
-            //draw target forward group vector
-            UnityEditor.Handles.color = Color.white;
-            UnityEditor.Handles.DrawLine(group.area.center,new Vector3(group.area.center.x - transform.position.x, 0, group.area.center.z - transform.position.z).normalized);
-
-            //draw area property
-            group.area.DrawGizmoArea();
+                //draw area property
+                group.area.DrawGizmoArea();
+            }
 
         }
     }
@@ -376,10 +374,6 @@ public class AreaData
         UnityEditor.Handles.DrawLine(vertexDownR, vertexDownL);
         UnityEditor.Handles.DrawLine(vertexUpL, vertexDownL);
         UnityEditor.Handles.DrawLine(vertexUpR, vertexDownR);
-
-        //draw current forward vector area
-        UnityEditor.Handles.color = Color.cyan;
-        UnityEditor.Handles.DrawLine(center, center + currentForward * 20f);
     }
 #endif
 }

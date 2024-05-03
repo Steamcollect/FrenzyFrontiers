@@ -67,6 +67,8 @@ public class EnnemyTemplate : MonoBehaviour
 
     public virtual void SelectTarget(Vector3 newTarget, GameObject target)
     {
+        print(target);
+
         if (target != null)
         { 
             targetPos = newTarget;
@@ -97,7 +99,7 @@ public class EnnemyTemplate : MonoBehaviour
         }
         else
         {
-            if (anim) anim.SetBool("IsRunning", false);
+            if (anim) anim.SetBool("Running", false);
             currentState = StateEnnemy.Walk;
         }
 
@@ -131,7 +133,7 @@ public class EnnemyTemplate : MonoBehaviour
     {
         transform.LookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z));
         float time = Vector3.Distance(targetPos, transform.position) / characteristic.walkSpeed;
-        if (anim) anim.SetBool("IsRunning", true);
+        if (anim) anim.SetBool("Running", true);
         transform.DOMove(targetPos, time).SetEase(Ease.Linear).OnComplete(() =>
         {
             if (Vector3.Distance(transform.position, Vector3.zero) <= 0.1f && target == null)
