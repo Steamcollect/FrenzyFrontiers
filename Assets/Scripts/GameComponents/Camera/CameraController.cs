@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     Vector3 dragStartPosition;
     Vector3 dragCurrentPosition;
 
-    [HideInInspector]public bool canMove, canRotate = true, canZoom = true, canReset = true;
+    [HideInInspector] public bool canMove = true, canRotate = true, canZoom = true, canReset = true;
     [HideInInspector] public float tutorialMove, tutorialRotate, tutorialZoom;
     [HideInInspector] public bool tutorialReset = false;
 

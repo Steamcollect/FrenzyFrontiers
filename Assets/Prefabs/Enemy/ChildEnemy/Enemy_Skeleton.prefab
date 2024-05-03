@@ -2581,21 +2581,6 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.48
       objectReference: {fileID: 0}
-    - target: {fileID: 2501771796897529509, guid: 6eea72058ffe7c845bd89c10b5149b4e,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2501771796897529509, guid: 6eea72058ffe7c845bd89c10b5149b4e,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2501771796897529509, guid: 6eea72058ffe7c845bd89c10b5149b4e,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 2911383669890805594, guid: 6eea72058ffe7c845bd89c10b5149b4e,
         type: 3}
       propertyPath: characteristic
