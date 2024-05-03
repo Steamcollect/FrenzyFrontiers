@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
+[RequireComponent(typeof(LoadAndSaveData))]
 public class SettingsManager : MonoBehaviour
 {
 	public AudioMixer audioMixer;

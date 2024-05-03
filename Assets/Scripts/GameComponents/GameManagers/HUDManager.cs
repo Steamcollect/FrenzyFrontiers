@@ -8,13 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
+    [Header("Panels")]
     [SerializeField] private GameObject[] panels;
     private Vector3[] panelsPosStart;
     [SerializeField] private float timeAnimation;
     private bool isPauseActive;
-
+    
     private bool canInput = true;
 
+    [Header("Settings Panel")]
+    public GameObject settingsPanel;
+    private bool isSettingsOpen;
+    private float posSettingsPanel;
+
+
+    [Header("References")]
     CameraController cameraController;
     [SerializeField] GameStateManager gameStateManager;
 
@@ -22,6 +30,7 @@ public class HUDManager : MonoBehaviour
 
     private void Start()
     {
+        posSettingsPanel = settingsPanel.transform.localPosition.x;
         cameraController = FindFirstObjectByType<CameraController>();
         panelsPosStart= new Vector3[panels.Length];
         for(int i = 0; i < panels.Length; i++)
@@ -47,6 +56,7 @@ public class HUDManager : MonoBehaviour
         });
         panels[goShowed].SetActive(true);
         panels[goShowed].transform.DOLocalMoveY(0, timeAnimation);
+        if (!isPauseActive && isSettingsOpen) SettingButton();
     }
 
     private void Update()
@@ -60,6 +70,21 @@ public class HUDManager : MonoBehaviour
     public void ShowMenu()
     {
         SwitchStateGame(gameStateManager.gameState == GameState.Paused);
+    }
+
+    public void SettingButton()
+    {
+        isSettingsOpen = !isSettingsOpen;
+        if (!isSettingsOpen)
+        {
+            settingsPanel.transform.DOLocalMoveX(posSettingsPanel, 0.5f).OnComplete(() => settingsPanel.SetActive(isSettingsOpen));
+        }
+        else
+        {
+            settingsPanel.SetActive(isSettingsOpen);
+            settingsPanel.transform.DOLocalMoveX(0f, 0.5f);
+        }
+
     }
 
     private void SwitchStateGame(bool isPause)
