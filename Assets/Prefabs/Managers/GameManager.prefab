@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2944613038097429659}
   - component: {fileID: 4710817414004579226}
-  - component: {fileID: 6991628402535109482}
+  - component: {fileID: 4002004571565390550}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   gameState: 0
   currentPhase: 1
   gameEnd: 0
---- !u!114 &6991628402535109482
+--- !u!114 &4002004571565390550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,13 +58,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7172900101679837461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f683141f316db5445855e6c736e64415, type: 3}
+  m_Script: {fileID: 11500000, guid: 557aa8713feaad44798d899427a2f04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanelGO: {fileID: 0}
-  settingsPanel: {fileID: 0}
-  particlesToCheck: []
-  isOnMenu: 0
+  panels:
+  - {fileID: 0}
+  - {fileID: 0}
+  timeAnimation: 0.5
+  gameStateManager: {fileID: 4710817414004579226}
 --- !u!1 &7823959549584386454
 GameObject:
   m_ObjectHideFlags: 0

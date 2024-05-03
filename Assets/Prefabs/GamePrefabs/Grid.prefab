@@ -51,7 +51,8 @@ MonoBehaviour:
   hexagoneTiles: 
   placementTiles: 
   farthestHexagoneDistance: 0
-  vectorGo: {fileID: 0}
+  vectorGo: {fileID: 3309826685812849760, guid: 90fba6f941f35b64fb94624c639cb23e,
+    type: 3}
 --- !u!114 &5913690957769481805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +90,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7210bf0f21452ba469646852c30b1064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesInInventory: []
+  tilesInInventory:
+  - {fileID: 11400000, guid: f9ed7ce514126b34588ba6ee4eabd176, type: 2}
+  - {fileID: 11400000, guid: 0a3698eef902dfd4fa29a2a9ee8c1c52, type: 2}
+  - {fileID: 11400000, guid: c7c993c62c07cc340a0a14e67f834051, type: 2}
+  - {fileID: 11400000, guid: 52899fabf8fa8df409d0e816e3c3240d, type: 2}
+  - {fileID: 11400000, guid: 96b7b03a6ff4ef244bdcc43ae28090f6, type: 2}
   tilesExist: []
   hdvTile: {fileID: 11400000, guid: f226d4eba11339549a2bf9e052f13613, type: 2}

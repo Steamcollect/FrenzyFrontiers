@@ -1,14 +1,19 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
-    private GameObject[] panels;
+    [SerializeField] private GameObject[] panels;
     private Vector3[] panelsPosStart;
+    [SerializeField] private float timeAnimation;
     private bool isPauseActive;
+
+    private bool canInput = true;
 
     CameraController cameraController;
     [SerializeField] GameStateManager gameStateManager;
@@ -22,29 +27,39 @@ public class HUDManager : MonoBehaviour
         for(int i = 0; i < panels.Length; i++)
         {
             panelsPosStart[i] = panels[i].transform.localPosition;
+            panels[i].SetActive(i == 0);
         }
+        panels[isPauseActive ? 1 : 0].transform.localPosition = Vector3.zero;
     }
 
     private void SwitchPanel()
     {
-        if (isPauseActive)
+        var goHidden = isPauseActive ? 0 : 1;
+        var goShowed = isPauseActive ? 1 : 0;
+
+        canInput = false;
+
+        panels[goHidden].transform.DOLocalMoveY(panelsPosStart[goHidden].y, timeAnimation*1.3f).OnComplete(()=>
         {
-            //panels[0].transform.DOLocalMoveY().OnComplete();
-        }
-        else
-        {
-           
-        }
-        panels[0].SetActive(isPauseActive?false:true);
-        panels[1].SetActive(isPauseActive?true:false);
+            panels[goHidden].SetActive(false);
+            canInput = true;
+            
+        });
+        panels[goShowed].SetActive(true);
+        panels[goShowed].transform.DOLocalMoveY(0, timeAnimation);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canInput)
         {
-            SwitchStateGame(gameStateManager.gameState== GameState.Paused);
+            ShowMenu();
         }
+    }
+
+    public void ShowMenu()
+    {
+        SwitchStateGame(gameStateManager.gameState == GameState.Paused);
     }
 
     private void SwitchStateGame(bool isPause)
@@ -55,11 +70,8 @@ public class HUDManager : MonoBehaviour
         SwitchPanel();
     }
 
-    private void BackToMenu()
-    {
+    public void BackToMenu() => SceneManager.LoadSceneAsync("MainMenu");
 
-    }
-
-    private void Quit() { }
+    public void Quit() => Application.Quit();
 
 }
