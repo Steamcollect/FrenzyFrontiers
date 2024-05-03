@@ -66,6 +66,8 @@ public class TilePlacementManager : MonoBehaviour
         lifeTileComponent.indexInGrid = 0;
         lifeTileComponent.onDeath += hexagonalGrid.RemoveHex;
         lifeTileComponent.onDeath += i => gameStateManager.ChangePhaseToLoose();
+
+        if (TutorialManager.instance.launchTutorial) TutorialManager.instance.tilePlacesCountSlider.maxValue = tilesToPlace.Count;
     }
 
     private void Update()
@@ -109,11 +111,14 @@ public class TilePlacementManager : MonoBehaviour
         Destroy(tilesToPlaceVisual[0].gameObject);
         tilesToPlaceVisual.Remove(tilesToPlaceVisual[0]);
 
+        if (TutorialManager.instance.launchTutorial) TutorialManager.instance.tilePlacesCountSlider.value++;
+
         if (tilesToPlace.Count > 0) PlaceTilesVisual();
         else
         {
             hexagonalGrid.SetActivePlacementHex(false);
-            gameStateManager.ChangePhaseToFight();
+            if (!TutorialManager.instance.launchTutorial) gameStateManager.ChangePhaseToFight();
+            else TutorialManager.instance.OnAllTilesPlace();
         }
     }
 
