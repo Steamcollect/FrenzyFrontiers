@@ -22,7 +22,7 @@ public class TutorialManager : MonoBehaviour
     CameraController cameraController;
 
     public Slider moveSlider, rotateSlider, zoomSlider, tilePlacesCountSlider;
-    float moveTarget, rotateTarget, zoomTarget;
+    [SerializeField] float moveTarget, rotateTarget, zoomTarget;
 
     int currentState = 0;
 
@@ -84,15 +84,16 @@ public class TutorialManager : MonoBehaviour
         if (cameraController.tutorialMove >= moveTarget && currentState == 0) OnMove();
         if (cameraController.tutorialRotate >= rotateTarget && currentState == 1) OnRotate();
         if (cameraController.tutorialZoom >= zoomTarget && currentState == 2) OnZoom();
-        if(cameraController.tutorialReset && currentState == 3) StartCoroutine(OnCameraReset());
+
+        if (cameraController.tutorialReset && currentState == 3) StartCoroutine(OnCameraReset());
     }
 
     IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1);
 
-        PlayPopUpSound();
 
+        PlayPopUpSound();
         movePanel.SetActive(true);
         movePanel.transform.Bump(1.08f);
         cameraController.canMove = true;
@@ -126,7 +127,6 @@ public class TutorialManager : MonoBehaviour
         currentState = 3;
 
         zoomPanel.SetActive(false);
-
         PlayPopUpSound();
         centerPanel.SetActive(true);
         centerPanel.transform.Bump(1.08f);
@@ -136,14 +136,12 @@ public class TutorialManager : MonoBehaviour
     IEnumerator OnCameraReset()
     {
         currentState = 4;
-
-        cameraController.enabled = false;
-
         centerPanel.SetActive(false);
 
-        tilePlacementManager.OnStart();
+        yield return new WaitForSeconds(1f);
 
-        yield return new WaitForSeconds(.3f);
+        cameraController.enabled = false;
+        tilePlacementManager.OnStart();
 
         PlayPopUpSound();
         inventoryPanel.SetActive(true);
@@ -160,6 +158,8 @@ public class TutorialManager : MonoBehaviour
 
     public void OnPlaceTileAgree()
     {
+        tilePlacementManager.OnFillHand();
+
         placeTilePanel.SetActive(false);
         cameraController.enabled = true;
 
