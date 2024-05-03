@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class TilePlacementManager : MonoBehaviour
 {
@@ -47,19 +47,22 @@ public class TilePlacementManager : MonoBehaviour
         // Create initial tile
         Tool.ResetTool();
         tmpHDV_GO = Instantiate(tileCatalog.hdvTile.tilePrefabs, Vector3.zero, Quaternion.identity);
-        tmpHDV_GO.transform.Bump(1.1f);        
+        tmpHDV_GO.transform.Bump(1.1f);
     }
 
     GameObject tmpHDV_GO;
     public void OnStart()
+    {
+        StartCoroutine(Tool.Delay(() => FillHandTile(tileToPlaceCount), 0.001f));
+        if(!TutorialManager.instance.launchTutorial) OnFillHand();
+    }
+    public void OnFillHand()
     {
         Hexagone firstHex = new Hexagone(Vector3.zero, Vector3.zero, null, tmpHDV_GO, tileCatalog.hdvTile);
 
         hexagonalGrid.hexagones.Add(firstHex);
         hexagonalGrid.hexagoneTiles.Add(0);
         hexagonalGrid.CreateHexPos(firstHex);
-
-        StartCoroutine(Tool.Delay(() => FillHandTile(tileToPlaceCount), 0.001f));
 
         LifeTileComponent lifeTileComponent = hexagonalGrid.hexagones[0].hexGO.GetComponent<LifeTileComponent>();
 
@@ -187,7 +190,6 @@ public class TilePlacementManager : MonoBehaviour
         ennemySpawner.PrepareNextWave();
 
         var tiles = Tool.ShuffleHand(tileCatalog.tilesInInventory, tileCount);
-        print(tileCount);
         foreach (var tile in tiles)
         {
             tilesToPlace.Add(tile);
