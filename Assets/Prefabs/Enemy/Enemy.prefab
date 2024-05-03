@@ -157,6 +157,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataLife: {fileID: 0}
   hitParticle: {fileID: 586408980523929707}
+  hitSound:
+  - {fileID: 8300000, guid: eb32b1ffab50a524399156ed30deef3d, type: 3}
+  - {fileID: 8300000, guid: 517166d2b35c9694f8a40f4ea48335d2, type: 3}
+  - {fileID: 8300000, guid: c9b6f38b550415f47b824df94272020e, type: 3}
+  - {fileID: 8300000, guid: 92a11d5f10b2aec469a9bc26df4ffebb, type: 3}
+  - {fileID: 8300000, guid: dfe8d1e962adc4143b3f7b2a30fdb82f, type: 3}
+  - {fileID: 8300000, guid: 2046871ae6fedb648b71211beef3ded4, type: 3}
+  - {fileID: 8300000, guid: a656870b790364141bbaef7d1e16ca5b, type: 3}
+  - {fileID: 8300000, guid: 7be535a0bc5cdfa4a8b5b52e2134919c, type: 3}
+  - {fileID: 8300000, guid: 86c3a629b06634b479185ec8d255d3b3, type: 3}
+  - {fileID: 8300000, guid: fcb6b15489a3b3842b1141c7452a27be, type: 3}
+  - {fileID: 8300000, guid: 1170c37d6fcf6bc4d96484a27a218f1f, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: 0caf8ccd0ce4777499750123c03d9d05, type: 3}
+  - {fileID: 8300000, guid: f834ccc2a0b5f3a4ba23fc6e726ae406, type: 3}
+  - {fileID: 8300000, guid: bfda5ab52167f4945aec501eae428720, type: 3}
+  - {fileID: 8300000, guid: 50d7d0a629c5cb04fa5fc7d348339863, type: 3}
 --- !u!114 &2911383669890805594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +191,15 @@ MonoBehaviour:
   characteristic: {fileID: 0}
   lifeSystem: {fileID: 2925062547438437071}
   anim: {fileID: 6641349120333766442}
+  attackSounds:
+  - {fileID: 8300000, guid: 7d64a31e5cc232e4b947b2fc48944d90, type: 3}
+  - {fileID: 8300000, guid: bf91eea43630bb84392208a05a6edb76, type: 3}
+  - {fileID: 8300000, guid: c5a1fd3e226000c4da59cb68cdf96bf3, type: 3}
+  - {fileID: 8300000, guid: 8c74336b9d1051842a75ebdf535c16bc, type: 3}
+  - {fileID: 8300000, guid: ae086d3c7941e5644a85017f00fe6f9e, type: 3}
+  - {fileID: 8300000, guid: 4a0386d6bc9813041a733d8e7407e20e, type: 3}
+  - {fileID: 8300000, guid: 659b6cf345048f84d906f10c71961d40, type: 3}
+  - {fileID: 8300000, guid: c9b85e28365a10f42bd66b051a7237a9, type: 3}
 --- !u!1001 &586408980504661931
 PrefabInstance:
   m_ObjectHideFlags: 0

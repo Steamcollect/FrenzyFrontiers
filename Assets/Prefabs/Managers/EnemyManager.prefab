@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3e601da2ed9988f4c8932c97e10ff0a9, type: 3}
   - {fileID: 8300000, guid: c75cd4628eea48043a972730afb274a2, type: 3}
   - {fileID: 8300000, guid: de42a91cd64fd0244b3c09af10e09eb1, type: 3}
+  winWaveSound: {fileID: 8300000, guid: dbfd85409d1a574498e1719f7cf25acb, type: 3}
 --- !u!114 &7854226299244205913
 MonoBehaviour:
   m_ObjectHideFlags: 0

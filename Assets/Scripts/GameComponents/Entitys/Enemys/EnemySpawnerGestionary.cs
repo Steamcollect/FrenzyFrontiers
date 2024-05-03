@@ -27,6 +27,8 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private int currentNbMonsterSpawn;
 
+    public AudioClip winWaveSound;
+
     private Queue<Tuple<int, int, GameObject>> queueInstantiate = new Queue<Tuple<int, int, GameObject>>();
 
     #region DebugEditor
@@ -54,7 +56,11 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private void OnEnnemyDeath()
     {
         currentNbMonsterSpawn -= 1;
-        if (currentNbMonsterSpawn <= 0) gameStateManager.ChangePhaseToBuild();
+        if (currentNbMonsterSpawn <= 0)
+        {
+            AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
+            gameStateManager.ChangePhaseToBuild();
+        }
     }
 
     private void Start()

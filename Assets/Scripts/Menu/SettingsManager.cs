@@ -11,7 +11,7 @@ public class SettingsManager : MonoBehaviour
 	public Slider mainVolumSlider, musicSlider, soundSlider;
 	public Toggle fullScreenToggle;
 
-	float mainVolum, musicVolum, soundVolum;
+	[HideInInspector] public float mainVolum, musicVolum, soundVolum;
 	bool isFullScreen;
 
 	LoadAndSaveData dataSystem;

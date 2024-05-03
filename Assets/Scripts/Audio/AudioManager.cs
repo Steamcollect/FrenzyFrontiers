@@ -15,10 +15,13 @@ public class AudioManager : MonoBehaviour
     public AudioMixer audioMixer;
     public AudioMixerGroup soundMixerGroup;
 
+    SettingsManager settingsManager;
+
     public static AudioManager instance;
 
     private void Awake()
     {
+        settingsManager = FindFirstObjectByType<SettingsManager>();
         audioSource = GetComponent<AudioSource>();
         instance = this;
     }
@@ -36,16 +39,38 @@ public class AudioManager : MonoBehaviour
         if (!audioSource.isPlaying && playlist.Length > 0)
         {
             currentMusicIndex = (currentMusicIndex + 1) % playlist.Length;
-            audioSource.clip = playlist[currentMusicIndex];
-            audioSource.Play();
+            StartCoroutine(ChangeMusic(playlist[currentMusicIndex]));
         }
     }
 
-    //public IEnumerator ChangeMusic(AudioClip music)
-    //{
-    //    float volum;
-    //}
-    float LinearToDB(float volum)
+    public IEnumerator ChangeMusic(AudioClip music)
+    {
+        float initialVolum = settingsManager.musicVolum;
+        float volum = initialVolum;
+
+        while (volum > 0)
+        {
+            volum -= .3f * Time.deltaTime;
+            audioMixer.SetFloat("Music", LinearToDecibel(volum));
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(.5f);
+
+        audioSource.clip = music;
+        audioSource.Play();
+
+        while (volum < initialVolum)
+        {
+            volum += .3f * Time.deltaTime;
+            audioMixer.SetFloat("Music", LinearToDecibel(volum));
+            yield return null;
+        }
+
+        volum = initialVolum;
+        audioMixer.SetFloat("Music", LinearToDecibel(volum));
+    }
+    float LinearToDecibel(float volum)
     {
         float dB;
 

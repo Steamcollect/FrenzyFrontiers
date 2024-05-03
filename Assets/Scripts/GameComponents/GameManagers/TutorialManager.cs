@@ -8,7 +8,12 @@ public class TutorialManager : MonoBehaviour
     public bool launchTutorial;
 
     [Header("References")]
-    public Animator tutorialAnim;
+    public GameObject movePanel;
+    public GameObject rotatePanel;
+    public GameObject zoomPanel;
+    public GameObject centerPanel;
+    public GameObject inventoryPanel;
+    public GameObject placeTilePanel;
 
     PauseManager pauseManager;
     TilePlacementManager tilePlacementManager;
@@ -16,6 +21,8 @@ public class TutorialManager : MonoBehaviour
 
     public Slider moveSlider, rotateSlider, zoomSlider;
     public float moveTarget, rotateTarget, zoomTarget;
+
+    public AudioClip popUpSound;
 
     bool canFillHand = true;
 
@@ -30,6 +37,11 @@ public class TutorialManager : MonoBehaviour
     {
         if (launchTutorial)
         {
+            movePanel.SetActive(false);
+            rotatePanel.SetActive(false);
+            zoomPanel.SetActive(false);
+            centerPanel.SetActive(false);
+
             moveSlider.value = 0;
             rotateSlider.value = 0;
             zoomSlider.value = 0;
@@ -69,7 +81,10 @@ public class TutorialManager : MonoBehaviour
     IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(1);
-        tutorialAnim.SetTrigger("Move");
+
+        AudioManager.instance.PlayClipAt(popUpSound, 0, Vector2.zero);
+        movePanel.SetActive(true);
+        movePanel.transform.Bump(1.08f);
         cameraController.canMove = true;
     }
 
@@ -77,39 +92,63 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
 
-        tutorialAnim.SetTrigger("Rotate");
+        movePanel.SetActive(false);
+        
+        rotatePanel.SetActive(true);
+        rotatePanel.transform.Bump(1.08f);
+       
         cameraController.canRotate = true;
     }
     IEnumerator OnRotate()
     {
         yield return new WaitForSeconds(.5f);
 
-        tutorialAnim.SetTrigger("Zoom");
+        rotatePanel.SetActive(false);
+        
+        zoomPanel.SetActive(true);
+        zoomPanel.transform.Bump(1.08f);
+        
         cameraController.canZoom = true;
     }
     IEnumerator OnZoom()
     {
         yield return new WaitForSeconds(.5f);
-        tutorialAnim.SetTrigger("CameraReset");
+        
+        zoomPanel.SetActive(false);
+        
+        centerPanel.SetActive(true);
+        centerPanel.transform.Bump(1.08f);
+        
         cameraController.canReset = true;
     }
     IEnumerator OnCameraReset()
     {
         canFillHand = false;
         cameraController.enabled = false;
-        yield return new WaitForSeconds(.5f);
-        tutorialAnim.SetTrigger("Inventory");
+
+        centerPanel.SetActive(false);
+
         tilePlacementManager.OnStart();
+
+        yield return new WaitForSeconds(.3f);
+
+        inventoryPanel.SetActive(true);
+        inventoryPanel.transform.Bump(1.08f);
     }
     public void OnInventoryAgree()
     {
+        //tutorialAnim.SetTrigger("InventoryAgree");
         cameraController.enabled = true;
-        tutorialAnim.SetTrigger("InventoryAgree");
         print("check");
+    }
+
+    public void OnPlaceTileAgree()
+    {
+
     }
 
     void FinishTutorial()
     {
-        enabled = false;
+        gameObject.SetActive(false);
     }
 }
