@@ -17,8 +17,11 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print("Enter");
+
         if (other.CompareTag(targetTag))
         {
+        print("Target enter");
             OnCollision(other.gameObject);
         }
     }

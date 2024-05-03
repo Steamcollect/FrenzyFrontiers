@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2944613038097429659}
   - component: {fileID: 4710817414004579226}
   - component: {fileID: 4002004571565390550}
+  - component: {fileID: 2200401668963591482}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -65,7 +66,24 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   timeAnimation: 0.5
+  settingsPanel: {fileID: 0}
   gameStateManager: {fileID: 4710817414004579226}
+--- !u!114 &2200401668963591482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7172900101679837461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cbf4b24aa12154192f52654c6651db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreTxt: {fileID: 0}
+  score: 0
+  waveTxt: {fileID: 0}
+  currentWave: 0
 --- !u!1 &7823959549584386454
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,10 +129,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchTutorial: 0
-  tutorialAnim: {fileID: 0}
+  movePanel: {fileID: 0}
+  rotatePanel: {fileID: 0}
+  zoomPanel: {fileID: 0}
+  centerPanel: {fileID: 0}
+  inventoryPanel: {fileID: 0}
+  placeTilePanel: {fileID: 0}
+  placeAllTilePanel: {fileID: 0}
+  survivNightPanel: {fileID: 0}
+  finalpanelPanel: {fileID: 0}
   moveSlider: {fileID: 0}
   rotateSlider: {fileID: 0}
   zoomSlider: {fileID: 0}
+  tilePlacesCountSlider: {fileID: 0}
   moveTarget: 0
   rotateTarget: 0
   zoomTarget: 0
+  popUpSound: {fileID: 0}

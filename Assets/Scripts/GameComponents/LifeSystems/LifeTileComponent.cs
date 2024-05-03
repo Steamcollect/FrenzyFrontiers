@@ -26,15 +26,15 @@ public class LifeTileComponent : LifeSystem
     }
 
     protected override void ApplyOnHealth(ref float value)
-    {
-        if(currentHealth <= 4 && !darkSmokeParticle.isPlaying)
+    {        
+        if(greySmokePaticle && currentHealth <= 10 && !greySmokePaticle.isPlaying)
         {
-            darkSmokeParticle.Play();
-            greySmokePaticle.Stop();
-        }
-        else if(currentHealth <= 10 && !greySmokePaticle.isPlaying)
-        {
-            greySmokePaticle.Play();
+            if (darkSmokeParticle && currentHealth <= 4 && !darkSmokeParticle.isPlaying)
+            {
+                darkSmokeParticle.Play();
+                greySmokePaticle.Stop();
+            }
+            else greySmokePaticle.Play();
         }
 
         transform.Bump(1.05f);

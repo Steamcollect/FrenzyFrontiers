@@ -113,6 +113,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void ShowNextWave()
     {
+        print("fefsrf");
         AudioManager.instance.PlayClipAt(waveAnnouncementClips.ToList().GetRandom(), 0, Vector3.zero);
 
         ScoreManager.instance?.NewWave();

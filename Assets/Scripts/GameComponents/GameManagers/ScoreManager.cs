@@ -1,13 +1,13 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
-    public Transform scoreContent;
     public TMP_Text scoreTxt;
     public int score = 0;
 
-    public Animator waveTxtAnim;
     public TMP_Text waveTxt;
     public int currentWave = 0;
 
@@ -25,19 +25,36 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int scoreGiven)
     {
-        if (GameStateManager.instance.gameEnd) return;
+        if (GameStateManager.instance.gameEnd || !scoreTxt) return;
 
         score += scoreGiven;
         scoreTxt.text = score.ToString() + " pts";
 
-        scoreContent.Bump(1.1f);
+        scoreTxt.transform.Bump(1.1f);
     }
 
     public void NewWave()
     {
+        if (!waveTxt) return;
+
         currentWave++;
-        waveTxt.text = "Wave : " + currentWave;
-        waveTxtAnim.SetTrigger("ShowWave");
+        waveTxt.text = "Wave " + currentWave;
+        waveTxt.gameObject.SetActive(true);
+        waveTxt.transform.Bump(1.1f);
+
+        StartCoroutine(HidWaveTxt());
+    }
+
+    IEnumerator HidWaveTxt()
+    {
+        yield return new WaitForSeconds(3);
+        Color initColor = waveTxt.color;
+
+        waveTxt.DOColor(new Color(initColor.r, initColor.g, initColor.b, 0), 1).OnComplete(() =>
+        {
+            waveTxt.gameObject.SetActive(false);
+            waveTxt.color = initColor;
+        });
     }
 
     public void SetGameOverPanel()

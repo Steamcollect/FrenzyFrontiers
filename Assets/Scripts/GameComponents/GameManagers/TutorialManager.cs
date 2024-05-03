@@ -77,6 +77,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
+        if (!launchTutorial) return;
+
         moveSlider.value = cameraController.tutorialMove;
         rotateSlider.value = cameraController.tutorialRotate;
         zoomSlider.value = cameraController.tutorialZoom;
@@ -186,6 +188,8 @@ public class TutorialManager : MonoBehaviour
 
     public IEnumerator OnNightEnd()
     {
+        cameraController.enabled = false;
+
         yield return new WaitForSeconds(.8f);
 
         PlayPopUpSound();
@@ -199,6 +203,7 @@ public class TutorialManager : MonoBehaviour
     }
     public void EndTutorial()
     {
+        launchTutorial = false;
         SceneManager.LoadScene("Game");
     }
 

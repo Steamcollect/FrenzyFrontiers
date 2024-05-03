@@ -9,8 +9,6 @@ public class Defenses_Mortar : Defenses
     public float initialVelocity;
     public float angle;
 
-    public Animator anim;
-
     public Transform attackPoint;
     public GameObject bulletPrefabs;
 
@@ -21,9 +19,6 @@ public class Defenses_Mortar : Defenses
 
     public override void Attack(Vector3 targetPos)
     {
-        //Attack
-        anim.SetTrigger("Attack");
-
         Projectile_Bombe currentProjectile = Instantiate(bulletPrefabs, attackPoint.position, attackPoint.rotation).GetComponent<Projectile_Bombe>();
         currentProjectile.initialVelocity = _stats.bulletVelocity;
         currentProjectile.initialAngle = angle;
