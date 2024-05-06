@@ -7,7 +7,8 @@ public class GameStateManager : MonoBehaviour
     public GameState gameState = GameState.Gameplay;
     public GamePhase currentPhase = GamePhase.Building;
     public bool gameEnd = false;
-    
+    public AudioClip loseSound;
+
     public delegate void Gameplay();
     public static event Gameplay OnGameplay;
 
@@ -32,7 +33,6 @@ public class GameStateManager : MonoBehaviour
 
     public void ResumeGameState()
     {
-        Debug.Log("resume");
         gameState = GameState.Gameplay;
         ApplyGameState();
     }
@@ -49,18 +49,16 @@ public class GameStateManager : MonoBehaviour
     }
     public void ChangePhaseToBuild()
     {
-        //print("heho");
         currentPhase = GamePhase.Building;
         ApplyGamePhase();
     }
 
     public void ChangePhaseToLoose()
-    {
-        print("loose");
-        ScoreManager.instance.SetGameOverPanel();
+    {   
         gameEnd = true;
         gameState = GameState.Loose;
         OnLoose?.Invoke();
+        AudioManager.instance.PlayClipAt(loseSound, 0, Vector2.zero);
     }
 
     private void ApplyGameState()
@@ -78,6 +76,7 @@ public class GameStateManager : MonoBehaviour
     }
     private void ApplyGamePhase()
     {
+        if (gameEnd) return;
         switch (currentPhase)
         {
             case GamePhase.Fighting:

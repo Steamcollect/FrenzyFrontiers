@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using DG.Tweening;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class ScoreManager : MonoBehaviour
     public int currentWave = 0;
 
     public static ScoreManager instance;
+    public LoadAndSaveData toolSave;
 
     private void Awake()
     {
@@ -57,8 +61,20 @@ public class ScoreManager : MonoBehaviour
         });
     }
 
-    public void SetGameOverPanel()
+    public List<int> GetHighscore()
     {
-        GameOverManager.instance.SetPanel(currentWave, score);
+        var hightScore = toolSave.gamesData.highScore;
+        if (hightScore.Count == 0 || hightScore[hightScore.Count - 1] < score)
+        {
+            if (hightScore.Count >= 5) hightScore.RemoveAt(hightScore.Count - 1);
+            hightScore.Add(score);
+            hightScore = hightScore.OrderByDescending(o=> o).ToList();
+
+            toolSave.gamesData.highScore = hightScore;
+            toolSave.SaveGamesData();
+        }
+
+        hightScore.ForEach(o=> print(o));
+        return hightScore;
     }
 }

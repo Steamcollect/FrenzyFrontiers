@@ -178,7 +178,6 @@ public static class Tool
         nextWavePower.Clear();
     }
 
-
     public static IEnumerator Delay(Action ev, float delay)
     {
         yield return new WaitForSeconds(delay);

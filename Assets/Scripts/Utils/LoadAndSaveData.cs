@@ -11,7 +11,7 @@ public class LoadAndSaveData : MonoBehaviour
     string gamesDataPath;
     string parametersDataPath;
 
-    private void Awake()
+    private void Start()
     {
         gamesDataPath = Application.persistentDataPath + "/GamesData.json";
         parametersDataPath = Application.persistentDataPath + "/ParametersData.json";
@@ -21,6 +21,8 @@ public class LoadAndSaveData : MonoBehaviour
 
         if (ParametersDataFileAlreadyExist()) LoadParametersData();
         else SaveParametersData();
+
+        print(gamesDataPath);
     }
 
     public void SaveGamesData()
@@ -58,7 +60,7 @@ public class LoadAndSaveData : MonoBehaviour
 [System.Serializable]
 public class GamesData
 {
-
+    public List<int> highScore = new List<int>();
 }
 
 [System.Serializable]

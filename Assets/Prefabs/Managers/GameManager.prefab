@@ -50,6 +50,7 @@ MonoBehaviour:
   gameState: 0
   currentPhase: 1
   gameEnd: 0
+  loseSound: {fileID: 8300000, guid: 5d3d27ec79edea74c91927e7f094133f, type: 3}
 --- !u!114 &4002004571565390550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +68,9 @@ MonoBehaviour:
   - {fileID: 0}
   timeAnimation: 0.5
   settingsPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  highScoreTxt: {fileID: 0}
+  scoreTxt: {fileID: 0}
   gameStateManager: {fileID: 4710817414004579226}
 --- !u!114 &2200401668963591482
 MonoBehaviour:
@@ -84,6 +88,7 @@ MonoBehaviour:
   score: 0
   waveTxt: {fileID: 0}
   currentWave: 0
+  toolSave: {fileID: 0}
 --- !u!1 &7823959549584386454
 GameObject:
   m_ObjectHideFlags: 0

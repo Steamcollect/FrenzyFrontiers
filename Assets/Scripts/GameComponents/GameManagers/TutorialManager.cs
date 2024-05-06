@@ -70,7 +70,6 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            tilePlacementManager.OnStart();
             gameObject.SetActive(false);
         }
     }

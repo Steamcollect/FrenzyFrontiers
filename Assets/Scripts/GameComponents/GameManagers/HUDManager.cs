@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -22,21 +23,26 @@ public class HUDManager : MonoBehaviour
     private float posSettingsPanel;
 
 
-    [Header("References")]
-    CameraController cameraController;
-    [SerializeField] GameStateManager gameStateManager;
+    [Header("GameOver Panel")]
+    public GameObject gameOverPanel;
+    public TMP_Text highScoreTxt;
+    public TMP_Text scoreTxt;
 
-    private void Awake() => cameraController = FindFirstObjectByType<CameraController>();
+    [Header("References")]
+    [SerializeField] private GameStateManager gameStateManager;
+
+    private void OnEnable() => GameStateManager.OnLoose += OpenPanelGameOver;
+
+    private void OnDisable() => GameStateManager.OnLoose -= OpenPanelGameOver;
 
     private void Start()
     {
         posSettingsPanel = settingsPanel.transform.localPosition.x;
-        cameraController = FindFirstObjectByType<CameraController>();
         panelsPosStart= new Vector3[panels.Length];
         for(int i = 0; i < panels.Length; i++)
         {
             panelsPosStart[i] = panels[i].transform.localPosition;
-            panels[i].SetActive(i == 0);
+            panels[i].SetActive(true);
         }
         panels[isPauseActive ? 1 : 0].transform.localPosition = Vector3.zero;
     }
@@ -50,11 +56,11 @@ public class HUDManager : MonoBehaviour
 
         panels[goHidden].transform.DOLocalMoveY(panelsPosStart[goHidden].y, timeAnimation*1.3f).OnComplete(()=>
         {
-            panels[goHidden].SetActive(false);
+            //panels[goHidden].SetActive(false);
             canInput = true;
             
         });
-        panels[goShowed].SetActive(true);
+        //panels[goShowed].SetActive(true);
         panels[goShowed].transform.DOLocalMoveY(0, timeAnimation);
         if (!isPauseActive && isSettingsOpen) SettingButton();
     }
@@ -87,6 +93,32 @@ public class HUDManager : MonoBehaviour
 
     }
 
+    public void OpenPanelGameOver()
+    {
+        canInput = false;
+        foreach (var item in panels)
+        {
+            item.SetActive(false);
+        }
+        gameOverPanel.SetActive(true);
+        gameOverPanel.transform.DOLocalMoveY(0, 0.5f);
+        
+        var scores = ScoreManager.instance.GetHighscore();
+
+        scoreTxt.text = ScoreManager.instance.score.ToString();
+
+        string text = "";
+        for(int i = 0; i < 5; i++)
+        {
+            if (scores.Count == 0 || i > scores.Count - 1) text += (i+1) + ": Null";
+            else text += (i+1) + ": " + scores[i].ToString();
+
+            text += "\n";
+        }
+
+        highScoreTxt.text = text;
+    }
+
     private void SwitchStateGame(bool isPause)
     {
         if (isPause) { gameStateManager.ResumeGameState(); }
@@ -94,6 +126,8 @@ public class HUDManager : MonoBehaviour
         isPauseActive = !isPause;
         SwitchPanel();
     }
+
+    public void Replay() => SceneManager.LoadSceneAsync("Game");
 
     public void BackToMenu() => SceneManager.LoadSceneAsync("MainMenu");
 

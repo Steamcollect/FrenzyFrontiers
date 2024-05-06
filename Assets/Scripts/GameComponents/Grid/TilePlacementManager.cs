@@ -48,6 +48,7 @@ public class TilePlacementManager : MonoBehaviour
         Tool.ResetTool();
         tmpHDV_GO = Instantiate(tileCatalog.hdvTile.tilePrefabs, Vector3.zero, Quaternion.identity);
         tmpHDV_GO.transform.Bump(1.1f);
+        if (!TutorialManager.instance.launchTutorial) OnStart();
     }
 
     GameObject tmpHDV_GO;
@@ -63,6 +64,7 @@ public class TilePlacementManager : MonoBehaviour
         hexagonalGrid.hexagones.Add(firstHex);
         hexagonalGrid.hexagoneTiles.Add(0);
         hexagonalGrid.CreateHexPos(firstHex);
+        //hexagonalGrid.hexagones[0].hexGO = tmpHDV_GO;
 
         LifeTileComponent lifeTileComponent = hexagonalGrid.hexagones[0].hexGO.GetComponent<LifeTileComponent>();
 
