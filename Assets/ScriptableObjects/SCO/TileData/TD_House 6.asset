@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce111ac67e6b95b4986f573d4fbe3f85, type: 3}
-  m_Name: TD_Forest
+  m_Name: TD_House 6
   m_EditorClassIdentifier: 
-  tilePrefabs: {fileID: 6711733471146079028, guid: ff26ae8a5d6622b44b845a0501e811ec,
+  tilePrefabs: {fileID: 6711733471146079028, guid: 630c1f763af271a4e95b3c81b3000473,
     type: 3}
   synergysPossibles: []
   typeTile: 0
   typeNeedToBuild: 
   tileEnemyAccess: 00000000
   powerTile: 0
-  raretyCardSpawn: 81
+  raretyCardSpawn: 75

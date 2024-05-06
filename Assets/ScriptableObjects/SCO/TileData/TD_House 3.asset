@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce111ac67e6b95b4986f573d4fbe3f85, type: 3}
-  m_Name: TD_Cannon
+  m_Name: TD_House 3
   m_EditorClassIdentifier: 
-  tilePrefabs: {fileID: 5604370893814654111, guid: 0e2c753064e3ffc4f86c632d159fdcc7,
+  tilePrefabs: {fileID: 6711733471146079028, guid: fc6fb532eff667b4d80df4fa8a7727bc,
     type: 3}
   synergysPossibles: []
-  typeTile: 1
+  typeTile: 0
   typeNeedToBuild: 
-  tileEnemyAccess: 02000000
-  powerTile: 3
-  raretyCardSpawn: 60
+  tileEnemyAccess: 00000000
+  powerTile: 0
+  raretyCardSpawn: 75
