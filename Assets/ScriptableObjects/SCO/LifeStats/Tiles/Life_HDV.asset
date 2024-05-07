@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59bbf4726897f564aad78506279fd56c, type: 3}
   m_Name: Life_HDV
   m_EditorClassIdentifier: 
-  maxHealth: 35
+  maxHealth: 40
   maxShield: 0

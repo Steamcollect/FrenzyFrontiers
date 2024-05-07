@@ -18,5 +18,5 @@ MonoBehaviour:
   typeTile: 0
   typeNeedToBuild: 
   tileEnemyAccess: 00000000
-  powerTile: 0
+  powerTile: 1
   raretyCardSpawn: 81
