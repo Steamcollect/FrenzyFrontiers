@@ -110,7 +110,7 @@ public class HUDManager : MonoBehaviour
         string text = "";
         for(int i = 0; i < 5; i++)
         {
-            if (scores.Count == 0 || i > scores.Count - 1) text += (i+1) + ": Null";
+            if (scores.Count == 0 || i > scores.Count - 1) text += (i+1) + ": ---";
             else text += (i+1) + ": " + scores[i].ToString();
 
             text += "\n";

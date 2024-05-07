@@ -64,7 +64,7 @@ public class ScoreManager : MonoBehaviour
     public List<int> GetHighscore()
     {
         var hightScore = toolSave.gamesData.highScore;
-        if (hightScore.Count == 0 || hightScore[hightScore.Count - 1] < score)
+        if (hightScore.Count < 5 || (hightScore.Count >= 5 && hightScore[hightScore.Count - 1] < score))
         {
             if (hightScore.Count >= 5) hightScore.RemoveAt(hightScore.Count - 1);
             hightScore.Add(score);
