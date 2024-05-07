@@ -808,6 +808,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4791020734722994735}
+    - targetCorrespondingSourceObject: {fileID: 5336697622086290804, guid: f67b78762572fd047af7d2bf53d26a76,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8807937626952940550}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f67b78762572fd047af7d2bf53d26a76, type: 3}
 --- !u!4 &9114017958032242276 stripped
@@ -1541,4 +1545,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 409628, guid: 702740a5e4ac1ee40a1888d3b62faa91,
     type: 3}
   m_PrefabInstance: {fileID: 8495674777586508856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8663502649294757348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9114017958032242276}
+    m_Modifications:
+    - target: {fileID: 146056207605087682, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_Name
+      value: ChemineeSmoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.604
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.241
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.149
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c245d4c549285241b2135e19b67bb2a, type: 3}
+--- !u!4 &8807937626952940550 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 146056207605244386, guid: 4c245d4c549285241b2135e19b67bb2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8663502649294757348}
   m_PrefabAsset: {fileID: 0}
