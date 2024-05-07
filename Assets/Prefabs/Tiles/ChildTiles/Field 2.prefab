@@ -1540,7 +1540,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dataLife
       value: 
-      objectReference: {fileID: 11400000, guid: 006d4d9addb2cb245a5dce2ab41c557f,
+      objectReference: {fileID: 11400000, guid: 789842b179b5d0b458f5c862eeaf7474,
         type: 2}
     - target: {fileID: 4339125830452661657, guid: f67b78762572fd047af7d2bf53d26a76,
         type: 3}

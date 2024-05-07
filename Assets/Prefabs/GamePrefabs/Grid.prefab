@@ -53,6 +53,7 @@ MonoBehaviour:
   farthestHexagoneDistance: 0
   vectorGo: {fileID: 3309826685812849760, guid: 90fba6f941f35b64fb94624c639cb23e,
     type: 3}
+  tutorialLifeTile: {fileID: 11400000, guid: 2d69fc4c43b712c458625bcd64977361, type: 2}
 --- !u!114 &5913690957769481805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesVisualContent: {fileID: 0}
   tilesVisualSpacing: -0.5
-  tileToPlaceCount: 5
+  tileToPlaceCount: 10
   tileMoveClips:
   - {fileID: 8300000, guid: 4f7f0bb322116984c87fc778241a7610, type: 3}
   - {fileID: 8300000, guid: 6ae84daab9d7ed545b997fe455e41ba7, type: 3}
@@ -92,9 +93,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesInInventory:
   - {fileID: 11400000, guid: f9ed7ce514126b34588ba6ee4eabd176, type: 2}
+  - {fileID: 11400000, guid: 9ee1e319884779e4f89a52805846fae5, type: 2}
   - {fileID: 11400000, guid: 0a3698eef902dfd4fa29a2a9ee8c1c52, type: 2}
+  - {fileID: 11400000, guid: 3525a9521ad61024f9dd8622ed6f5ec3, type: 2}
+  - {fileID: 11400000, guid: ba7d8228e64914a43996b456f8c0cf6e, type: 2}
+  - {fileID: 11400000, guid: b05fc11e9242caf4aacbec3fc1d1ece5, type: 2}
+  - {fileID: 11400000, guid: 252271c3176a9cb43bdf15ba43b686df, type: 2}
+  - {fileID: 11400000, guid: 807a0d0ce5451b84cbbd67bdba26700d, type: 2}
   - {fileID: 11400000, guid: c7c993c62c07cc340a0a14e67f834051, type: 2}
+  - {fileID: 11400000, guid: 378c0db7db853894988ee790cbab5c76, type: 2}
+  - {fileID: 11400000, guid: 2eac69f7284730d45b8c87bf692b908f, type: 2}
+  - {fileID: 11400000, guid: 17297bd603337ef45afea04a265b1675, type: 2}
+  - {fileID: 11400000, guid: bd72ab706c2e5234cbf83d1e5f1745cd, type: 2}
+  - {fileID: 11400000, guid: 2d30401ebf9221b4991859f80c32b77d, type: 2}
   - {fileID: 11400000, guid: 52899fabf8fa8df409d0e816e3c3240d, type: 2}
+  - {fileID: 11400000, guid: 7316a35a54cc63448a5c6e40ddec057f, type: 2}
   - {fileID: 11400000, guid: 96b7b03a6ff4ef244bdcc43ae28090f6, type: 2}
   tilesExist: []
   hdvTile: {fileID: 11400000, guid: f226d4eba11339549a2bf9e052f13613, type: 2}
