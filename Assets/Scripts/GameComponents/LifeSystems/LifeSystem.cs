@@ -13,11 +13,7 @@ public abstract class LifeSystem : MonoBehaviour, IDamage
     protected virtual void Awake()
     {
         if (dataLife == null) throw new ArgumentNullException("LifeData not assign");
-        else
-        {
-            currentHealth = dataLife.MaxHealth;
-            currentShield = dataLife.MaxShield;
-        }
+        else OverrideLife();
     }
 
     public virtual void GetDamage(float damageValue)
@@ -54,6 +50,17 @@ public abstract class LifeSystem : MonoBehaviour, IDamage
     public float GetLife()
     {
         return currentHealth;
+    }
+
+    public void ChangeDataLife(SCO_LifeData lifeData)
+    {
+        dataLife = lifeData;
+        OverrideLife();
+    }
+    protected void OverrideLife()
+    {
+        currentHealth = dataLife.MaxHealth;
+        currentShield = dataLife.MaxShield;
     }
 }
 

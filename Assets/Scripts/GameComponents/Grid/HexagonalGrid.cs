@@ -13,6 +13,8 @@ public class HexagonalGrid : MonoBehaviour
 
     public GameObject vectorGo;
 
+    public SCO_LifeData tutorialLifeTile;
+
     DefensesManager defensesManager;
 
     private void Awake()
@@ -43,6 +45,7 @@ public class HexagonalGrid : MonoBehaviour
 
         lifeTileComponent.indexInGrid = placementIndex;
         lifeTileComponent.onDeath += RemoveHex;
+        if (TutorialManager.instance.launchTutorial) lifeTileComponent.ChangeDataLife(tutorialLifeTile);
 
         if(hexagones[placementIndex].hexGO.TryGetComponent<Defenses>(out Defenses defense))
         {
