@@ -56,6 +56,8 @@ public class EnemySpawnerGestionary : MonoBehaviour
     }
     #endregion
 
+    public int GetWave() => currentWave;
+
     private void OnEnnemyDeath()
     {
         currentNbMonsterSpawn -= 1;
