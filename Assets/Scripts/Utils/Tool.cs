@@ -158,6 +158,7 @@ public static class Tool
 
         while (differencePow > 0 && tileCanPickAll.Count > 0 && index < nbTileHand)
         {
+            SortDataByPower(ref tileCanPickTower, ref differencePow);
             var tile = tileCanPickAll.First();
             if (tile.powerTile > differencePow) tileCanPickAll.Remove(tile);
             else
@@ -170,6 +171,14 @@ public static class Tool
         }
 
         return hand;
+    }
+
+    private static void SortDataByPower(ref List<SCO_TileData> tileCanPick, ref float diffPower)
+    {
+        for (int i = tileCanPick.Count-1; i >=0; --i)
+        {
+            if (tileCanPick[i].powerTile > diffPower) tileCanPick.RemoveAt(i);
+        }
     }
 
     public static void ResetTool()

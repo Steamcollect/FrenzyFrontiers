@@ -142,7 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c02c5c7585bee84fb5de04c86f3d293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playlist: []
+  playlist:
+  - {fileID: 8300000, guid: 40d2236864b02424a90cd05908c98f9a, type: 3}
   audioMixer: {fileID: 24100000, guid: 30051e5905bd60e419b3366ea8017e38, type: 2}
   soundMixerGroup: {fileID: 6955243653545139469, guid: 30051e5905bd60e419b3366ea8017e38,
     type: 2}

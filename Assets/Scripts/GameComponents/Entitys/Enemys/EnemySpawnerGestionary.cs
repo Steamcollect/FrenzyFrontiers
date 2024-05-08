@@ -18,6 +18,9 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     [SerializeField] AudioClip[] waveAnnouncementClips;
 
+    private GameObject goLocationGroup;
+    [SerializeField] private GameObject particleLocation;
+
     private List<EnnemyGroup> ennemyList = new List<EnnemyGroup>();
     
     private GameObject gameObjectGroup;
@@ -67,12 +70,18 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void Start()
     {
+        transform.position = Vector3.zero; //For the case of game manager not in center world
+
         if (waveSettings == null) throw new ArgumentNullException("Data wave not assign");
         if (!modDebug) currentWave = 1;
         else
         {
             ResetExemple();
         }
+
+        goLocationGroup = new GameObject("LocationParticleGroup");
+        goLocationGroup.transform.parent = transform;
+
         gameStateManager = FindFirstObjectByType<GameStateManager>();
         grid = FindFirstObjectByType<HexagonalGrid>();
     }
@@ -113,7 +122,9 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void ShowNextWave()
     {
-        print("fefsrf");
+        Destroy(goLocationGroup);
+        goLocationGroup = new GameObject("LocationParticleGroup");
+
         AudioManager.instance.PlayClipAt(waveAnnouncementClips.ToList().GetRandom(), 0, Vector3.zero);
 
         ScoreManager.instance?.NewWave();
@@ -129,6 +140,19 @@ public class EnemySpawnerGestionary : MonoBehaviour
         currentWave++;
         Tool.ResetWavePower();
         InitWave();
+
+        GameObject particleInst;
+
+        for (int i =0; i < ennemyList.Count; i++)
+        {
+            if (ennemyList[i].ennemyGroup.Count() > 0)
+            {
+                particleInst = Instantiate(particleLocation);
+                particleInst.transform.parent = goLocationGroup.transform;
+                particleInst.transform.position = ennemyList[i].area.center;
+                
+            }
+        }
     }
 
     private void InitWave()
@@ -278,7 +302,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
 public class EnnemyGroup
 {
     public GameObject[] ennemyGroup;
-    public Vector3 spawnPoint;
     public AreaData area;
 }
 

@@ -17,6 +17,6 @@ MonoBehaviour:
   synergysPossibles: []
   typeTile: 0
   typeNeedToBuild: 
-  tileEnemyAccess: 
+  tileEnemyAccess: 00000000
   powerTile: 2
   raretyCardSpawn: 80

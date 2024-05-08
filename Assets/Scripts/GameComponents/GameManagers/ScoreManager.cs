@@ -24,7 +24,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        scoreTxt.text = score.ToString() + " pts";
+        if (scoreTxt)
+            scoreTxt.text = score.ToString() + " pts";
     }
 
     public void AddScore(int scoreGiven)
