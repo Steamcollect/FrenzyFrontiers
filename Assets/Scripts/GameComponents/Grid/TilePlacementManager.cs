@@ -9,6 +9,7 @@ public class TilePlacementManager : MonoBehaviour
     public float tilesVisualSpacing;
 
     public int tileToPlaceCount = 5;
+    public AnimationCurve tileCountProgressionCurve;
 
     GameObject nextTileToPlaceVisual;
     float tileToPlaceRotation = 0;
@@ -54,7 +55,7 @@ public class TilePlacementManager : MonoBehaviour
     GameObject tmpHDV_GO;
     public void OnStart()
     {
-        StartCoroutine(Tool.Delay(() => FillHandTile(tileToPlaceCount), 0.001f));
+        StartCoroutine(Tool.Delay(() => FillHandTile(), 0.001f));
         if(!TutorialManager.instance.launchTutorial) OnFillHand();
     }
     public void OnFillHand()
@@ -187,11 +188,11 @@ public class TilePlacementManager : MonoBehaviour
         return currentHexIndex;
     }
 
-    void FillHandTile(int tileCount)
+    void FillHandTile()
     {
         ennemySpawner.PrepareNextWave();
 
-        var tiles = Tool.ShuffleHand(tileCatalog.tilesInInventory, tileCount);
+        var tiles = Tool.ShuffleHand(tileCatalog.tilesInInventory, SetTileCount());
         foreach (var tile in tiles)
         {
             tilesToPlace.Add(tile);
@@ -229,7 +230,14 @@ public class TilePlacementManager : MonoBehaviour
         hexagonalGrid.SetActivePlacementHex(true);
 
         ennemySpawner.PrepareNextWave();
-        FillHandTile(tileToPlaceCount);
+        FillHandTile();
+    }
+
+    int SetTileCount()
+    {
+        int tmp;
+        tmp = tileToPlaceCount + (int)tileCountProgressionCurve.Evaluate(ennemySpawner.GetWave());
+        return tmp;
     }
 
     void RotateTilesToPlaceVisual()

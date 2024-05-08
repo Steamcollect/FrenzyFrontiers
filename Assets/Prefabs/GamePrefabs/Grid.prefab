@@ -68,7 +68,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesVisualContent: {fileID: 0}
   tilesVisualSpacing: -0.5
-  tileToPlaceCount: 10
+  tileToPlaceCount: 6
+  tileCountProgressionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 10.644249
+      value: 1.1172651
+      inSlope: 0.16925408
+      outSlope: 0.16925408
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3364126
+      outWeight: 0.15358283
+    - serializedVersion: 3
+      time: 22.394636
+      value: 5.856507
+      inSlope: 0.7350851
+      outSlope: 0.7350851
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 30
+      value: 15
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   tileMoveClips:
   - {fileID: 8300000, guid: 4f7f0bb322116984c87fc778241a7610, type: 3}
   - {fileID: 8300000, guid: 6ae84daab9d7ed545b997fe455e41ba7, type: 3}
@@ -109,5 +151,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52899fabf8fa8df409d0e816e3c3240d, type: 2}
   - {fileID: 11400000, guid: 7316a35a54cc63448a5c6e40ddec057f, type: 2}
   - {fileID: 11400000, guid: 96b7b03a6ff4ef244bdcc43ae28090f6, type: 2}
+  - {fileID: 11400000, guid: 1944343435a02b14289b2918c12f25c3, type: 2}
+  - {fileID: 11400000, guid: c415905b15aa72944b4db1d7fb4145c6, type: 2}
+  - {fileID: 11400000, guid: 4e70d8d43926061499e27bef6e48f52f, type: 2}
   tilesExist: []
   hdvTile: {fileID: 11400000, guid: f226d4eba11339549a2bf9e052f13613, type: 2}

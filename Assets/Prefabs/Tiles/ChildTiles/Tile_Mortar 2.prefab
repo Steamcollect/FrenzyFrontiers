@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7531556773833271252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2652490808398965301}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2652490808398965301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531556773833271252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 0.253, z: 0.046}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8938905089882425493}
+  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
 --- !u!1001 &1857362397877910629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169,12 +200,12 @@ PrefabInstance:
     - target: {fileID: 1430170658962706477, guid: f557be8e6e155a54e8dbebf18fb12c13,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 11.91
       objectReference: {fileID: 0}
     - target: {fileID: 1430170658962706477, guid: f557be8e6e155a54e8dbebf18fb12c13,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 11.91
       objectReference: {fileID: 0}
     - target: {fileID: 1430170658962706477, guid: f557be8e6e155a54e8dbebf18fb12c13,
         type: 3}
@@ -423,10 +454,10 @@ MonoBehaviour:
   defensesManager: {fileID: 0}
   initialVelocity: 5
   angle: 45
-  attackPoint: {fileID: 0}
+  attackPoint: {fileID: 2652490808398965301}
   bulletPrefabs: {fileID: 6207360306954372420, guid: 62c16aa9b37e80543bf7385db16fb98b,
     type: 3}
-  rotatePoint: {fileID: 7969428095722873295}
+  rotatePoint: {fileID: 8938905089882425493}
   rotateTime: 0.5
 --- !u!4 &7969428095722873295 stripped
 Transform:
@@ -1152,7 +1183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 04ff87aa9a1b96a4cbf97da1b716bf91,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2652490808398965301}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04ff87aa9a1b96a4cbf97da1b716bf91, type: 3}
 --- !u!4 &8938905089882425493 stripped
