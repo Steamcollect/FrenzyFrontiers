@@ -64,10 +64,10 @@ public static class Tool
         });
     }
 
-    public static T GetRandom<T>(this List<T> elems)
+    public static T GetRandom<T>(this IEnumerable<T> elems)
     {
-        if (elems.Count == 0) throw new ArgumentException("List empty");
-        return elems[UnityEngine.Random.Range(0, elems.Count)];
+        if (elems.Count() == 0) throw new ArgumentException("List empty");
+        return elems.ElementAt(new System.Random().Next(0, elems.Count()));
     }
 
     public static bool FindIn<T>(this IEnumerable<T> elems, T elemFind)
@@ -148,6 +148,7 @@ public static class Tool
             foreach (var tile in tileCanPickTower.FindAll(o => o.tileEnemyAccess.Contains(type)))
             {
                 if (tile.powerTile > differencePow) continue;
+                differencePow -= Mathf.Round(tile.powerTile / 2);
                 hand[index] = tile;
                 index++;
                 typeMissing.Remove(type);
@@ -156,29 +157,47 @@ public static class Tool
         }
         //End check
 
-        while (differencePow > 0 && tileCanPickAll.Count > 0 && index < nbTileHand)
+        while (tileCanPickAll.Count > 0 && index < nbTileHand)
         {
-            SortDataByPower(ref tileCanPickTower, ref differencePow);
-            var tile = tileCanPickAll.First();
-            if (tile.powerTile > differencePow) tileCanPickAll.Remove(tile);
-            else
-            {
-                hand[index] = tile;
-                index++;
-                differencePow -= tile.powerTile;
-                if (tile.typeTile != TypeTile.Building && UnityEngine.Random.Range(0f, 1f) > 0.5f) tileCanPickAll.Remove(tile);
-            }
+            ClearDataByPowerRemain(ref tileCanPickAll, ref differencePow);
+            var tile = (differencePow < 1)? tileCanPickAll.GetRandom():GetRandomTileByChance(ref tileCanPickAll);
+            if (tile == null) { Debug.LogWarning("Tile picked null"); continue; }
+            hand[index] = tile;
+            index++;
+            differencePow -= tile.powerTile;
         }
 
         return hand;
     }
 
-    private static void SortDataByPower(ref List<SCO_TileData> tileCanPick, ref float diffPower)
+    private static void ClearDataByPowerRemain(ref List<SCO_TileData> tileCanPick, ref float diffPower)
     {
         for (int i = tileCanPick.Count-1; i >=0; --i)
         {
             if (tileCanPick[i].powerTile > diffPower) tileCanPick.RemoveAt(i);
         }
+    }
+
+    private static SCO_TileData GetRandomTileByChance(ref List<SCO_TileData> tiles)
+    {
+        float ttRarety = 0;
+        foreach (SCO_TileData tile in tiles)
+        {
+            ttRarety += tile.powerTile;
+        }
+
+
+        float rndNumber = UnityEngine.Random.Range(0, ttRarety+1);
+
+        float cumulRarety = 0;
+
+        foreach(SCO_TileData tile in tiles)
+        {
+            cumulRarety += tile.powerTile;
+            if (rndNumber < cumulRarety) return tile;
+        }
+
+        return null;
     }
 
     public static void ResetTool()

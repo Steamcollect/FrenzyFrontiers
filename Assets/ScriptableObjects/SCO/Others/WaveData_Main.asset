@@ -16,10 +16,10 @@ MonoBehaviour:
   - prefab: {fileID: 5469324169613805982, guid: edd094f55c2fde841b8054b10adf2849,
       type: 3}
     enemyType: 2
-    powerUnit: 1
+    powerUnit: 2
     waveMin: 1
   - prefab: {fileID: 5469324169613805982, guid: 8b88128a45702af43b545277c03a486e,
       type: 3}
     enemyType: 2
-    powerUnit: 3
+    powerUnit: 5
     waveMin: 4

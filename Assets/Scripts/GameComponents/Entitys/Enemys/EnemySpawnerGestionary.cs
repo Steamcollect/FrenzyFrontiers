@@ -219,7 +219,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void FillGroupEnemy()
     {
-        EnemyWave[] enemiesWave = waveSettings.waveData.FindAll(o => o.waveMin <= currentWave).ToArray();
+        EnemyWave[] enemiesWave = waveSettings.waveData.FindAll(o => currentWave >= o.waveMin).ToArray();
         EnemyWave enemy =  null;
         Tuple<int, int, GameObject> tuple;
 
@@ -227,7 +227,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
         {
             for (int j = 0; j < ennemyList[i].ennemyGroup.Length; ++j)
             {
-                enemy = waveSettings.waveData.GetRandom();
+                enemy = enemiesWave.GetRandom();
                 Tool.PickPowerWave(enemy);
                 tuple = Tuple.Create(i, j, enemy.prefab);
                 queueInstantiate.Enqueue(tuple);
