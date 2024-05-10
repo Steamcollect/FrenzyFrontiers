@@ -6,6 +6,7 @@ public abstract class LifeSystem : MonoBehaviour, IDamage
     public Action onLifeUpdated;
     protected float currentHealth;
     protected float currentShield;
+    protected bool alreadyDestroyed;
     [SerializeField] protected SCO_LifeData dataLife;
 
     [SerializeField] ParticleSystem hitParticle;

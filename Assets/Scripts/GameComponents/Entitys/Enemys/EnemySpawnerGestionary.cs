@@ -10,36 +10,37 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private bool modDebug = false;
 
     private int currentWave;
+    private int currentNbMonsterSpawn;
+
+    [Header("References")]
     [SerializeField] private SCO_EnnemyWave waveSettings;
+    [SerializeField] private AudioClip[] waveAnnouncementClips;
+    [SerializeField] private GameObject particleLocation;
+    [SerializeField] private AudioClip winWaveSound;
+
+    [Header("Settings Particles")]
+    [SerializeField] private Vector3 minSizeCloud;
+    [SerializeField] private Vector3 maxSizeCloud;
+    [SerializeField] private Color easyColorCloud;
+    [SerializeField] private Color hardColorCloud;
+    [SerializeField] private int nbEnemiesLerp;
 
     private int nbSpawnPoint;
     private int nbMonsterSpawn;
     private float radiusCircle;
 
-    [SerializeField] AudioClip[] waveAnnouncementClips;
-
     private GameObject goLocationGroup;
-    [SerializeField] private GameObject particleLocation;
+    private GameObject gameObjectGroup;
 
     private List<EnnemyGroup> ennemyList = new List<EnnemyGroup>();
-    
-    private GameObject gameObjectGroup;
+    private Queue<Tuple<int, int, GameObject>> queueInstantiate = new Queue<Tuple<int, int, GameObject>>();
 
     private GameStateManager gameStateManager;
     private HexagonalGrid grid;
 
-    private int currentNbMonsterSpawn;
-
-    public AudioClip winWaveSound;
-
-    private Queue<Tuple<int, int, GameObject>> queueInstantiate = new Queue<Tuple<int, int, GameObject>>();
 
     #region DebugEditor
-    public void ShowExemple()
-    {
-        ResetExemple();
-        InitWave();
-    }
+    
     public void ResetExemple()
     {
         if (gameObjectGroup) 
@@ -58,16 +59,22 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     public int GetWave() => currentWave;
 
-    private void OnEnnemyDeath()
+    private void OnDeathEnemy()
     {
+
         currentNbMonsterSpawn -= 1;
         if (currentNbMonsterSpawn <= 0)
         {
-            AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
+            StartCoroutine(Tool.Delay(() => 
+            {
+                AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
 
-            if (TutorialManager.instance.launchTutorial) StartCoroutine(TutorialManager.instance.OnNightEnd());
-            else gameStateManager.ChangePhaseToBuild();
+                if (TutorialManager.instance.launchTutorial) StartCoroutine(TutorialManager.instance.OnNightEnd());
+                else gameStateManager.ChangePhaseToBuild();
+            }
+            , 0.5f));
         }
+        
     }
 
     private void Start()
@@ -132,7 +139,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
         ScoreManager.instance?.NewWave();
         foreach (var group in ennemyList)
         {
-            foreach(var enemy in group.ennemyGroup) enemy?.SetActive(true);
+            foreach(var enemy in group.ennemyGroup)StartCoroutine(Tool.Delay(()=> enemy?.SetActive(true),UnityEngine.Random.Range(0.05f,0.35f)));
         }
     }
 
@@ -142,20 +149,9 @@ public class EnemySpawnerGestionary : MonoBehaviour
         currentWave++;
         Tool.ResetWavePower();
         InitWave();
-
-        GameObject particleInst;
-
-        for (int i =0; i < ennemyList.Count; i++)
-        {
-            if (ennemyList[i].ennemyGroup.Count() > 0)
-            {
-                particleInst = Instantiate(particleLocation);
-                particleInst.transform.parent = goLocationGroup.transform;
-                particleInst.transform.position = ennemyList[i].area.center;
-                
-            }
-        }
+        
     }
+
 
     private void InitWave()
     {
@@ -164,20 +160,21 @@ public class EnemySpawnerGestionary : MonoBehaviour
         SetGroupEnemySize();
         FillGroupEnemy();
         StartCoroutine(InstantiateEnemies());
+        CreateParticleWave();
     }
 
     private void SetSpawnPointEnnemy()
     {
         int maxIndex = GetNbSpawnPoint();
         int index = 0;
-        radiusCircle = (modDebug) ? radiusCircle : grid.farthestHexagoneDistance + grid.horizontalDistance * 4.5f;
+        radiusCircle = modDebug ? radiusCircle : grid.farthestHexagoneDistance + grid.horizontalDistance*3.85f;
 
         float currentAngle = UnityEngine.Random.Range(0, 360);
         float incrementAngle = 2 * Mathf.PI / (maxIndex + UnityEngine.Random.Range(0, 4));
 
         while (index < maxIndex)
         {
-            ennemyList.Add(new EnnemyGroup { area = new AreaData { center = PointOnCircleCirconference(transform.position, radiusCircle, currentAngle) } });
+            ennemyList.Add(new EnnemyGroup { centerSpawnPoint  = PointOnCircleCirconference(transform.position, radiusCircle, currentAngle) });
             float factorRd = UnityEngine.Random.Range(0.8f, 1.35f);
             currentAngle = (currentAngle + incrementAngle * factorRd >= 360) ? 360 - (currentAngle + incrementAngle * factorRd) : currentAngle + incrementAngle * factorRd;
             index++;
@@ -192,8 +189,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
         float rdValue = 0;
         for (var i = 0; i < ennemyList.Count; i++)
         {
-            Vector3 targetForward = new Vector3(transform.position.x - ennemyList[i].area.center.x, 0,transform.position.z - ennemyList[i].area.center.z).normalized;
-
             //Random value to add a nb random in each group
             rdValue = Mathf.Ceil(UnityEngine.Random.Range(nbMonsterSpawn / ennemyList.Count * -0.8f, nbMonsterSpawn / ennemyList.Count * 0.8f));
 
@@ -202,18 +197,15 @@ public class EnemySpawnerGestionary : MonoBehaviour
                 int nb = ((nbMonsterSpawn / ennemyList.Count + rdValue + currentMonsterWave) > nbMonsterSpawn)
                     ? Mathf.Clamp(nbMonsterSpawn - currentMonsterWave, 0, nbMonsterSpawn)
                     : Mathf.Clamp((int)(nbMonsterSpawn / ennemyList.Count + rdValue),0, nbMonsterSpawn);
-                //Debug.Log(nb);
+                
                 ennemyList[i].ennemyGroup = new GameObject[nb];
                 currentMonsterWave += ennemyList[i].ennemyGroup.Length;
             }
             else
             {
-                ennemyList[i].ennemyGroup = new GameObject[nbMonsterSpawn - currentMonsterWave];
+                ennemyList[i].ennemyGroup = new GameObject[(int)Mathf.Clamp(nbMonsterSpawn - currentMonsterWave,0.0f,99999999999.0f)];
                 currentMonsterWave += ennemyList[i].ennemyGroup.Length;
             }
-
-            ennemyList[i].area.AlignCenterInCenterArea(ref targetForward, ennemyList[i].ennemyGroup.Length);
-            ennemyList[i].area.GenerateArea(ref targetForward, ennemyList[i].ennemyGroup.Length*0.6f, 0.1f , ennemyList[i].ennemyGroup.Length*0.6f);
         }
         currentNbMonsterSpawn = ennemyList.Sum(o => o.ennemyGroup.Length);
         
@@ -243,12 +235,42 @@ public class EnemySpawnerGestionary : MonoBehaviour
         {
             var obj = queueInstantiate.Dequeue();
             ennemyList[obj.Item1].ennemyGroup[obj.Item2] = Instantiate(obj.Item3);
-            ennemyList[obj.Item1].ennemyGroup[obj.Item2].GetComponent<LifeEnnemyComponent>().onDeath += OnEnnemyDeath;
+            ennemyList[obj.Item1].ennemyGroup[obj.Item2].GetComponent<LifeEnnemyComponent>().onDeath += OnDeathEnemy;
             ennemyList[obj.Item1].ennemyGroup[obj.Item2].transform.parent = gameObjectGroup.transform;
-            ennemyList[obj.Item1].ennemyGroup[obj.Item2].transform.position = ennemyList[obj.Item1].area.GetRandomPointInside();
+            ennemyList[obj.Item1].ennemyGroup[obj.Item2].transform.position = ennemyList[obj.Item1].centerSpawnPoint;
             ennemyList[obj.Item1].ennemyGroup[obj.Item2].SetActive(false);
 
             yield return new WaitForSeconds(0.08f);
+        }
+    }
+
+    private void CreateParticleWave()
+    {
+        GameObject particleInst;
+        ParticleSystem particleSystem;
+        ParticleSystem.MainModule mainModule;
+        ParticleSystem.ShapeModule shapeModule;
+        int nbEnemyGroup;
+
+        for (int i = 0; i < ennemyList.Count; i++)
+        {
+            
+            nbEnemyGroup = ennemyList[i].ennemyGroup.Count();
+            if (nbEnemyGroup > 0)
+            {
+                particleInst = Instantiate(particleLocation);
+                particleSystem = particleInst.GetComponent<ParticleSystem>();
+
+                mainModule = particleSystem.main;
+                mainModule.startColor = Color.Lerp(easyColorCloud,hardColorCloud, Mathf.Clamp01((float)nbEnemyGroup / nbEnemiesLerp));
+
+                shapeModule = particleSystem.shape;
+                shapeModule.scale = Vector3.Lerp(minSizeCloud,maxSizeCloud, Mathf.Clamp01((float)nbEnemyGroup / nbEnemiesLerp));
+
+
+                particleInst.transform.parent = goLocationGroup.transform;
+                particleInst.transform.position = ennemyList[i].centerSpawnPoint;
+            }
         }
     }
 
@@ -283,18 +305,12 @@ public class EnemySpawnerGestionary : MonoBehaviour
         UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.up, radiusCircle);
         foreach (EnnemyGroup group in ennemyList)
         {
-            
-            
             if (group.ennemyGroup.Count() > 0)
             {
                 //draw point center group
                 UnityEditor.Handles.color = Color.blue;
-                UnityEditor.Handles.DrawWireCube(group.area.center, Vector3.one);
-
-                //draw area property
-                group.area.DrawGizmoArea();
+                UnityEditor.Handles.DrawWireCube(group.centerSpawnPoint, Vector3.one);
             }
-
         }
     }
 #endif
@@ -304,102 +320,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
 public class EnnemyGroup
 {
     public GameObject[] ennemyGroup;
-    public AreaData area;
-}
-
-[System.Serializable]
-public class AreaData
-{
-    [SerializeField] private Vector3 vertexUpR;
-    [SerializeField] private Vector3 vertexUpL;
-    [SerializeField] private Vector3 vertexDownR;
-    [SerializeField] private Vector3 vertexDownL;
-    [SerializeField] private Vector3 currentForward;
-
-    public Vector3 center;
-
-    public Vector3 GetRandomPointInside()
-    {
-        float sizeX = Vector3.Distance(vertexUpR, vertexUpL)/2f;
-        float sizeZ = Vector3.Distance(vertexUpL, vertexDownL)/2f;
-        return new Vector3(UnityEngine.Random.Range(-sizeX,sizeX),0, UnityEngine.Random.Range(-sizeZ,sizeZ)) + center;
-    }
-
-    public void GenerateArea(ref Vector3 targetForward, float distance, float sizeUp,float sizeDown)
-    {
-        vertexUpR = new Vector3(sizeUp, 0, Vector3.forward.z * distance);
-        vertexUpL = new Vector3(-sizeUp, 0, Vector3.forward.z * distance);
-        vertexDownR = new Vector3(sizeUp, 0, -Vector3.forward.z * distance);
-        vertexDownL = new Vector3(- sizeUp, 0, -Vector3.forward.z * distance);
-
-
-        //RotateArea(ref targetForward);
-
-        CalculForwardVector();
-        ApplyCoordinateToCenterArea();
-    }
-
-    public void RotateArea(ref Vector3 targetForward)
-    {
-        float angle = Mathf.Atan2(targetForward.z - currentForward.z, targetForward.x - currentForward.x);
-
-        RotatePointArea(ref vertexDownL, ref angle);
-        RotatePointArea(ref vertexDownR, ref angle);
-        RotatePointArea(ref vertexUpL, ref angle);
-        RotatePointArea(ref vertexUpR, ref angle);
-    }
-
-    public void ApplyCoordinateToCenterArea()
-    {
-        vertexDownL += center;
-        vertexDownR += center;
-        vertexUpL += center;
-        vertexUpR += center;
-    }
-
-    public void CalculForwardVector()
-    {
-        currentForward = ((vertexUpL + vertexUpR) / 2f - (vertexDownL + vertexDownR) / 2f).normalized;
-    }
-
-    public void RotatePointArea(ref Vector3 point, ref float angle)
-    {
-        float cos = Mathf.Cos(angle);
-        float sin = Mathf.Sin(angle);
-
-        //point.x = cos * (point.x - center.x) + sin * (point.z - center.z) + center.x;
-        //point.z = sin * -(point.x - center.x) + cos * (point.z - center.z) + center.z;
-
-        point.x = point.x * cos - point.z * sin;
-        point.z = point.x * sin + point.z * cos;
-    }
-
-    public void AlignCenterInCenterArea(ref Vector3 moveVector, float distance)
-    {
-        this.center += moveVector* -2 * distance/2;
-    }
-
-    public void DebugRotate(float angle)
-    {
-        
-        angle = Mathf.Deg2Rad * angle;
-
-        RotatePointArea(ref vertexDownL, ref angle);
-        RotatePointArea(ref vertexDownR, ref angle);
-        RotatePointArea(ref vertexUpL, ref angle);
-        RotatePointArea(ref vertexUpR, ref angle);
-
-        CalculForwardVector();
-    }
-
-#if UNITY_EDITOR
-    public void DrawGizmoArea()
-    {
-        UnityEditor.Handles.color = Color.black;
-        UnityEditor.Handles.DrawLine(vertexUpR, vertexUpL);
-        UnityEditor.Handles.DrawLine(vertexDownR, vertexDownL);
-        UnityEditor.Handles.DrawLine(vertexUpL, vertexDownL);
-        UnityEditor.Handles.DrawLine(vertexUpR, vertexDownR);
-    }
-#endif
+    public Vector3 centerSpawnPoint;
+    public float radiusSpawnPoint;
 }

@@ -22,7 +22,7 @@ public class LoadAndSaveData : MonoBehaviour
         if (ParametersDataFileAlreadyExist()) LoadParametersData();
         else SaveParametersData();
 
-        print(gamesDataPath);
+        //print(gamesDataPath);
     }
 
     public void SaveGamesData()

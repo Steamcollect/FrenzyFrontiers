@@ -42,14 +42,18 @@ public abstract class Defenses : MonoBehaviour
         if (hit == null) return null;
         else
         {
-            StopAllCoroutines();
-            StartCoroutine(AttackCooldown());
+            if (canAttack == true)
+            {
+                StopAllCoroutines();
+                StartCoroutine(AttackCooldown());
+            }
             return hit.transform;
         }
     }
 
     public IEnumerator AttackCooldown()
     {
+        print("enterdead");
         canAttack = false;
 
         yield return new WaitForSeconds(_stats.attackCoolDown);

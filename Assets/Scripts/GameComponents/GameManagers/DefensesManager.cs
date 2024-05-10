@@ -16,8 +16,10 @@ public class DefensesManager : MonoBehaviour
     private void Update()
     {
         if (gameStateManager.currentPhase != GamePhase.Fighting && gameStateManager.gameState != GameState.Gameplay) return;
+        if (gameStateManager.gameEnd) return;
 
         defences.RemoveAll(x => x == null);
+
         for (int i = 0; i < defences.Count; i++)
         {
             if (defences[i].target == null) defences[i].target = defences[i].FindTarget();

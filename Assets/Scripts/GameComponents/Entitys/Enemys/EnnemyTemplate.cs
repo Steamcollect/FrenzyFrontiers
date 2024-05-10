@@ -4,14 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(LifeEnnemyComponent))]
 public class EnnemyTemplate : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected RSE_EnnemyRequest _rseRequestTargetLink;
-    [FormerlySerializedAs("caracteristic")] [SerializeField] protected SCO_EnemyCharacteristic characteristic;
+    [SerializeField] protected SCO_EnemyCharacteristic characteristic;
     [SerializeField] protected LifeSystem lifeSystem;
 
     protected Vector3 targetPos;
@@ -29,7 +28,7 @@ public class EnnemyTemplate : MonoBehaviour
 
     protected void Start()
     {
-        _rseRequestTargetLink?.Call(this);
+        Wait();
         ((LifeEnnemyComponent)lifeSystem).onDeath += OnDeath;
         GameStateManager.OnPaused += FreezeEnnemy;
         GameStateManager.OnLoose += FreezeEnnemy;
@@ -52,7 +51,7 @@ public class EnnemyTemplate : MonoBehaviour
 
     protected void FreezeEnnemy()
     {
-        //print(this.name + " freezed");
+        anim.SetBool("Running",false);
         if (this?.gameObject)
             this.enabled = false;
     }
@@ -61,29 +60,31 @@ public class EnnemyTemplate : MonoBehaviour
     {
         //print(this.name + " refreshed");
         this.enabled = true;
-        Wait();
+        Wait(true);
     }
 
 
     public virtual void SelectTarget(Vector3 newTarget, GameObject target)
     {
-        print(target);
+        StartCoroutine(Delay(() => 
+        {
+            if (target != null)
+            {
+                targetPos = newTarget;
 
-        if (target != null)
-        { 
-            targetPos = newTarget;
+                targetPos += (transform.position - newTarget).normalized * characteristic.rangeAttack;
 
-            targetPos += (transform.position - newTarget).normalized * characteristic.rangeAttack;
+                this.target = target;
 
-            this.target = target;
-
-            MoveToTarget();
+                MoveToTarget();
+            }
+            else
+            {
+                currentState = StateEnnemy.Death;
+                Wait();
+            }
         }
-        else
-        { 
-            currentState = StateEnnemy.Death;
-            Wait();
-        }
+        , UnityEngine.Random.Range(0.15f, 1f)));
     }
     
     protected virtual void Attack()
@@ -92,14 +93,11 @@ public class EnnemyTemplate : MonoBehaviour
         {
             AudioManager.instance.PlayClipAt(attackSounds.ToList().GetRandom(), 1, transform.position);
 
-            if (anim) anim.SetTrigger("Attack");
-
             if (target.TryGetComponent<IDamage>(out IDamage component)) component.TakeDamage(characteristic.attackDamage);
             else Debug.LogWarning("hit miss");
         }
         else
         {
-            if (anim) anim.SetBool("Running", false);
             currentState = StateEnnemy.Walk;
         }
 
@@ -114,46 +112,57 @@ public class EnnemyTemplate : MonoBehaviour
         switch (currentState)
         {
             case StateEnnemy.Attack:
-                action = ()=> Attack();
+                Animate("Running", false);
+                action = () => { Animate("Attack"); Attack(); };
                 time = characteristic.cooldownAttack;
                 break;
             case StateEnnemy.Walk:
-                action = () => _rseRequestTargetLink?.Call(this);
+                action = () => { Animate("Running", true); _rseRequestTargetLink?.Call(this);};
                 time = characteristic.cooldownAttack;
                 break;
-            default:
+            default: //Death case
+                OnDeath();
                 action = () => Destroy(gameObject);
                 time = 0.5f;
                 break;
         }
-        StartCoroutine(Delay(action, (isRefresh)? 0f:time));
+        
+        StartCoroutine(Delay(action, isRefresh? 0f:time));
     }
 
     protected virtual void MoveToTarget()
     {
         transform.LookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z));
         float time = Vector3.Distance(targetPos, transform.position) / characteristic.walkSpeed;
-        if (anim) anim.SetBool("Running", true);
         transform.DOMove(targetPos, time).SetEase(Ease.Linear).OnComplete(() =>
         {
             if (Vector3.Distance(transform.position, Vector3.zero) <= 0.1f && target == null)
             {
-                if (anim) anim.SetTrigger("Die");
                 currentState = StateEnnemy.Death;
             }
             else
             {
                 currentState = StateEnnemy.Attack;
-                if (anim) anim.SetTrigger("Attack");
             }
 
             Wait();
         });
     }
 
-    void OnDeath()
+    protected void Animate(string name = "")
     {
-        if (anim) anim.SetTrigger("Die");
+        if (anim) anim.SetTrigger(name);
+    }
+
+    protected void Animate(string name = "", bool value = false)
+    {
+        if (anim) anim.SetBool(name, value);
+    }
+
+    protected void OnDeath()
+    {
+        StopAllCoroutines();
+        Animate("Die");
     }
 
     #region FunctionTool

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Characteristic_Warrior
   m_EditorClassIdentifier: 
   attackDamage: 8
-  walkSpeed: 3.5
+  walkSpeed: 2
   rangeAttack: 0
   cooldownAttack: 1.1

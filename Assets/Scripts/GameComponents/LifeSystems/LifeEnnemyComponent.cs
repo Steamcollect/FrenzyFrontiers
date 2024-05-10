@@ -11,12 +11,13 @@ public class LifeEnnemyComponent : LifeSystem
 
     protected override void CheckDeath()
     {
-        if (currentHealth <= 0) 
+        if (currentHealth <= 0 && ! alreadyDestroyed) 
         {
             AudioManager.instance.PlayClipAt(deathSound.ToList().GetRandom(), 1, transform.position);
-
             ScoreManager.instance.AddScore(5);
-            Destroy(gameObject,0.001f);
+            alreadyDestroyed = true;
+
+            Destroy(gameObject,0.5f);
             onDeath?.Invoke();
         }
         else AudioManager.instance.PlayClipAt(hitSound.ToList().GetRandom(), 1, transform.position);

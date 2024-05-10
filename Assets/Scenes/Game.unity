@@ -468,6 +468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5913690957769481805, guid: 05475ec7d22e3b3428c90905aff574d8,
         type: 3}
+      propertyPath: tileToPlaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913690957769481805, guid: 05475ec7d22e3b3428c90905aff574d8,
+        type: 3}
       propertyPath: tilesVisualContent
       value: 
       objectReference: {fileID: 1734615528}

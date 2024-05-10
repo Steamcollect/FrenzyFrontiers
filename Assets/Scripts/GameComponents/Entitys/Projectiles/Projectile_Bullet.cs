@@ -26,7 +26,7 @@ public class Projectile_Bullet : Projectile
             yield return null;
         }
 
-        Destroy(gameObject, .01f);
+        if (this.gameObject) Destroy(gameObject, .01f);
     }
 
     public override void OnCollision(GameObject hit)

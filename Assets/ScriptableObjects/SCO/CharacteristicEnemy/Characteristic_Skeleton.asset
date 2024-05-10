@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Characteristic_Skeleton
   m_EditorClassIdentifier: 
   attackDamage: 4
-  walkSpeed: 5
+  walkSpeed: 3
   rangeAttack: 0
   cooldownAttack: 0.8
