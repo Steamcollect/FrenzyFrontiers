@@ -42,11 +42,6 @@ public abstract class Defenses : MonoBehaviour
         if (hit == null) return null;
         else
         {
-            if (canAttack == true)
-            {
-                StopAllCoroutines();
-                StartCoroutine(AttackCooldown());
-            }
             return hit.transform;
         }
     }
