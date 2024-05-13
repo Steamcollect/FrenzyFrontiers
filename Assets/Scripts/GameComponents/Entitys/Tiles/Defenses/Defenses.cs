@@ -7,6 +7,7 @@ public abstract class Defenses : MonoBehaviour
     public SCO_TowerStats _stats;
 
     public bool canAttack = true;
+    public bool finishRotate  = true;
 
     public GameObject detectionRangeVisual;
 
@@ -48,7 +49,6 @@ public abstract class Defenses : MonoBehaviour
 
     public IEnumerator AttackCooldown()
     {
-        print("enterdead");
         canAttack = false;
 
         yield return new WaitForSeconds(_stats.attackCoolDown);

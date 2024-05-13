@@ -33,7 +33,7 @@ public class DefensesManager : MonoBehaviour
 
                 defences[i].SetVisualToFocusTarget();
 
-                if (defences[i].canAttack)
+                if (defences[i].canAttack && defences[i].finishRotate)
                 {
                     defences[i].Attack(defences[i].target.position);
                     StartCoroutine(defences[i].AttackCooldown());

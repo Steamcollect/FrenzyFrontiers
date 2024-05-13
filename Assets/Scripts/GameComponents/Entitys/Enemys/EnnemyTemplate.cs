@@ -54,6 +54,7 @@ public class EnnemyTemplate : MonoBehaviour
         anim.SetBool("Running",false);
         if (this?.gameObject)
             this.enabled = false;
+        StopAllCoroutines();
     }
 
     protected void RefreshEnnemy()
@@ -142,7 +143,7 @@ public class EnnemyTemplate : MonoBehaviour
             }
             else
             {
-                currentState = StateEnnemy.Attack;
+                currentState = target == null ? StateEnnemy.Walk : StateEnnemy.Attack;
             }
 
             Wait();

@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         if (!waveTxt) return;
 
         currentWave++;
-        waveTxt.text = "Wave " + currentWave;
+        waveTxt.text = "Day " + currentWave;
         waveTxt.gameObject.SetActive(true);
         waveTxt.transform.Bump(1.1f);
 

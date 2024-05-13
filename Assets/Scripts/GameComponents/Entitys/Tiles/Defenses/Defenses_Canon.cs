@@ -27,10 +27,14 @@ public class Defenses_Canon : Defenses
 
     public override void SetVisualToFocusTarget()
     {
+        finishRotate = false;
+
         lookDir = target.position - transform.position;
 
         float finalAngle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
         angle = Mathf.LerpAngle(angle, finalAngle, rotateTime);
         rotatePoint.rotation = Quaternion.Euler(0, angle, 0);
+
+        if (Mathf.Abs(angle - finalAngle) <= 1.5f) finishRotate = true;
     }
 }

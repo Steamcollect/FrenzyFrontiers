@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
 
             //When merge pass find all, get directy to new list tile
 
-            int indexTile = grid.GetClosestHexagone(UnityEngine.Random.Range(-5.5f,5.6f) * enemy.transform.right + enemy.transform.position);
+            int indexTile = grid.GetClosestHexagone(UnityEngine.Random.Range(-3.5f,3.6f) * enemy.transform.right + enemy.transform.position);
             if (indexTile == -1) { enemy.SelectTarget(targetPos, targetObj); return; }
             Hexagone hexagoneTile = grid.hexagones[indexTile];
 
