@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,8 +22,6 @@ public class EnemySpawnerGestionary : MonoBehaviour
     [Header("Settings Particles")]
     [SerializeField] private Vector3 minSizeCloud;
     [SerializeField] private Vector3 maxSizeCloud;
-    [SerializeField] private Color easyColorCloud;
-    [SerializeField] private Color hardColorCloud;
     [SerializeField] private int nbEnemiesLerp;
 
     private int nbSpawnPoint;
@@ -131,16 +130,20 @@ public class EnemySpawnerGestionary : MonoBehaviour
 
     private void ShowNextWave()
     {
-        Destroy(goLocationGroup);
-        goLocationGroup = new GameObject("LocationParticleGroup");
+        float time = 0f;
 
         AudioManager.instance.PlayClipAt(waveAnnouncementClips.ToList().GetRandom(), 0, Vector3.zero);
 
         ScoreManager.instance?.NewWave();
         foreach (var group in ennemyList)
         {
-            foreach(var enemy in group.ennemyGroup)StartCoroutine(Tool.Delay(()=> enemy?.SetActive(true),UnityEngine.Random.Range(0.05f,0.35f)));
+            foreach (var enemy in group.ennemyGroup) 
+            {
+                time = UnityEngine.Random.Range(0.05f, 0.15f);
+                StartCoroutine(Tool.Delay(() => enemy?.SetActive(true), time));
+            }
         }
+        StartCoroutine(Tool.Delay(()=> { Destroy(goLocationGroup); goLocationGroup = new GameObject("LocationParticleGroup"); }, 3f));
     }
 
     public void PrepareNextWave()
@@ -222,6 +225,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
             for (int j = 0; j < ennemyList[i].ennemyGroup.Length; ++j)
             {
                 enemy = enemiesWave.GetRandom();
+                if (enemy == null) { continue; }
                 Tool.PickPowerWave(enemy);
                 tuple = Tuple.Create(i, j, enemy.prefab);
                 queueInstantiate.Enqueue(tuple);
@@ -247,29 +251,18 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private void CreateParticleWave()
     {
         GameObject particleInst;
-        ParticleSystem particleSystem;
-        ParticleSystem.MainModule mainModule;
-        ParticleSystem.ShapeModule shapeModule;
         int nbEnemyGroup;
 
         for (int i = 0; i < ennemyList.Count; i++)
         {
             
             nbEnemyGroup = ennemyList[i].ennemyGroup.Count();
-            if (nbEnemyGroup > 0)
+            if (nbEnemyGroup >= 1)
             {
                 particleInst = Instantiate(particleLocation);
-                particleSystem = particleInst.GetComponent<ParticleSystem>();
-
-                mainModule = particleSystem.main;
-                mainModule.startColor = Color.Lerp(easyColorCloud,hardColorCloud, Mathf.Clamp01((float)nbEnemyGroup / nbEnemiesLerp));
-
-                shapeModule = particleSystem.shape;
-                shapeModule.scale = Vector3.Lerp(minSizeCloud,maxSizeCloud, Mathf.Clamp01((float)nbEnemyGroup / nbEnemiesLerp));
-
-
+                particleInst.transform.localPosition = ennemyList[i].centerSpawnPoint;
                 particleInst.transform.parent = goLocationGroup.transform;
-                particleInst.transform.position = ennemyList[i].centerSpawnPoint;
+                particleInst.transform.localScale = Vector3.Lerp(minSizeCloud, maxSizeCloud, Mathf.Clamp01((float)nbEnemyGroup / nbEnemiesLerp));
             }
         }
     }
@@ -282,7 +275,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private int GetNbSpawnPoint()
     {
         //Linear interpolation to have 3 point at 0 and 12 point at 8 or more, with random + 0/1
-         if (!modDebug) return 3 + (3 * (Mathf.Clamp(currentWave, 0, 8) / 8)) + (int)(UnityEngine.Random.Range(0, 2) * Mathf.Clamp01(currentWave));
+         if (!modDebug) return Mathf.Min(3 + (currentWave / 3) + UnityEngine.Random.Range(-1,2),7);
          return nbSpawnPoint;
     }
 

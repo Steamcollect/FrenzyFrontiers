@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        if (playlist == null) Debug.LogWarning("Asset playlist clean!");
         for (int i = 0; i < 30; i++)
         {
             soundsGo.Enqueue(CreateSoundsGO());

@@ -113,7 +113,7 @@ public class EnnemyTemplate : MonoBehaviour
         {
             case StateEnnemy.Attack:
                 Animate("Running", false);
-                action = () => { Animate("Attack"); Attack(); };
+                action = () => { Animate("Attack"); StartCoroutine(Tool.Delay(() => Attack(), 0.10f)); };
                 time = characteristic.cooldownAttack;
                 break;
             case StateEnnemy.Walk:

@@ -50,13 +50,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3e601da2ed9988f4c8932c97e10ff0a9, type: 3}
   - {fileID: 8300000, guid: c75cd4628eea48043a972730afb274a2, type: 3}
   - {fileID: 8300000, guid: de42a91cd64fd0244b3c09af10e09eb1, type: 3}
-  particleLocation: {fileID: 6634479724096410608, guid: a8523191493064f499531332d59974aa,
+  particleLocation: {fileID: 2036113556003605063, guid: f76fc294688b9b64a919b9ac147f4d69,
     type: 3}
   winWaveSound: {fileID: 8300000, guid: dbfd85409d1a574498e1719f7cf25acb, type: 3}
-  minSizeCloud: {x: 0.5, y: 1, z: 0.5}
-  maxSizeCloud: {x: 4, y: 1, z: 4}
-  easyColorCloud: {r: 0.3773585, g: 0, b: 0, a: 0.4509804}
-  hardColorCloud: {r: 0.122888565, g: 0.0012459978, b: 0.26415092, a: 0.54901963}
+  minSizeCloud: {x: 0.2, y: 0.2, z: 0.2}
+  maxSizeCloud: {x: 2, y: 2, z: 2}
   nbEnemiesLerp: 6
 --- !u!114 &7854226299244205913
 MonoBehaviour:
