@@ -192,6 +192,8 @@ public class TilePlacementManager : MonoBehaviour
     {
         ennemySpawner.PrepareNextWave();
 
+        tileCatalog.UpdateTilesInventory(ennemySpawner.GetWave());
+
         var tiles = Tool.ShuffleHand(tileCatalog.tilesInInventory, SetTileCount());
         foreach (var tile in tiles)
         {
@@ -229,7 +231,6 @@ public class TilePlacementManager : MonoBehaviour
 
         hexagonalGrid.SetActivePlacementHex(true);
 
-        ennemySpawner.PrepareNextWave();
         FillHandTile();
     }
 

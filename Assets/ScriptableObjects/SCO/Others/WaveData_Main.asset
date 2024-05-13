@@ -23,3 +23,8 @@ MonoBehaviour:
     enemyType: 2
     powerUnit: 5
     waveMin: 4
+  - prefab: {fileID: 5469324169613805982, guid: 42874f7cddd981741abb94b733783a0d,
+      type: 3}
+    enemyType: 2
+    powerUnit: 8
+    waveMin: 8

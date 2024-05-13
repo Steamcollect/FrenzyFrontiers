@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59bbf4726897f564aad78506279fd56c, type: 3}
-  m_Name: Life_Skeletton
+  m_Name: Life_Golem
   m_EditorClassIdentifier: 
-  maxHealth: 7
-  maxShield: 0
+  maxHealth: 45
+  maxShield: 5

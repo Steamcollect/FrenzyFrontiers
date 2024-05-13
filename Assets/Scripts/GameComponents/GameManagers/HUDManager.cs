@@ -127,9 +127,9 @@ public class HUDManager : MonoBehaviour
         SwitchPanel();
     }
 
-    public void Replay() => SceneManager.LoadSceneAsync("Game");
+    public void Replay() => SceneManager.LoadScene("Game");
 
-    public void BackToMenu() => SceneManager.LoadSceneAsync("MainMenu");
+    public void BackToMenu() => SceneManager.LoadScene("MainMenu");
 
     public void Quit() => Application.Quit();
 

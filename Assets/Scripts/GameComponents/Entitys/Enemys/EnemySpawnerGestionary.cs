@@ -81,7 +81,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
         transform.position = Vector3.zero; //For the case of game manager not in center world
 
         if (waveSettings == null) throw new ArgumentNullException("Data wave not assign");
-        if (!modDebug) currentWave = 1;
+        if (!modDebug) currentWave = 0;
         else
         {
             ResetExemple();
@@ -275,7 +275,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
     private int GetNbSpawnPoint()
     {
         //Linear interpolation to have 3 point at 0 and 12 point at 8 or more, with random + 0/1
-         if (!modDebug) return Mathf.Min(3 + (currentWave / 3) + UnityEngine.Random.Range(-1,2),7);
+         if (!modDebug) return Mathf.Clamp(1 + (currentWave / 3) + UnityEngine.Random.Range(-1,2),1,6);
          return nbSpawnPoint;
     }
 
@@ -283,7 +283,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
     {
         //add formule to increase monsters
         if (modDebug) return nbMonsterSpawn;
-        else return (int)((currentWave*1.5f) + UnityEngine.Random.Range(0,2));
+        else return (int)((currentWave*1.5f + 2) + UnityEngine.Random.Range(0,2));
     }
 
     private static Vector3 PointOnCircleCirconference(Vector3 origin, float radius, float angle)

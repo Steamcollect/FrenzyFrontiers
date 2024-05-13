@@ -142,13 +142,13 @@ public static class Tool
         //End sort data
 
         //Check to add tower need
-        for (int i = 0; i < ((typeMissing.Count > nbTileHand * 0.8) ? nbTileHand * 0.8 : typeMissing.Count); ++i)
+        for (int i = 0; i < ((typeMissing.Count > nbTileHand * 0.3) ? nbTileHand * 0.3 : typeMissing.Count); ++i)
         {
             EnemyType type = typeMissing.First();
             foreach (var tile in tileCanPickTower.FindAll(o => o.tileEnemyAccess.Contains(type)))
             {
                 if (tile.powerTile > differencePow) continue;
-                differencePow -= Mathf.Round(tile.powerTile / 2);
+                differencePow -= Mathf.Round(tile.powerTile);
                 hand[index] = tile;
                 index++;
                 typeMissing.Remove(type);
@@ -166,7 +166,6 @@ public static class Tool
             index++;
             differencePow -= tile.powerTile;
         }
-
         return hand;
     }
 

@@ -15,4 +15,4 @@ MonoBehaviour:
   attackDamage: 4
   walkSpeed: 3
   rangeAttack: 0
-  cooldownAttack: 0.8
+  cooldownAttack: 1.8
