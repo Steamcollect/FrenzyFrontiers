@@ -51,6 +51,8 @@ MonoBehaviour:
   currentPhase: 1
   gameEnd: 0
   loseSound: {fileID: 8300000, guid: 5d3d27ec79edea74c91927e7f094133f, type: 3}
+  lightSky: {fileID: 0}
+  timeMouvingLight: 2
 --- !u!114 &4002004571565390550
 MonoBehaviour:
   m_ObjectHideFlags: 0
