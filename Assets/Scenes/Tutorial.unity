@@ -37,8 +37,13 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
+<<<<<<< Updated upstream
   m_Sun: {fileID: 410087040}
   m_IndirectSpecularColor: {r: 0.33334658, g: 0.5962163, b: 1.053119, a: 1}
+=======
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.71028733, g: 0.92576855, b: 1.861675, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -993,6 +998,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343257760}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,6 +1117,8 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &431924160
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,7 +4382,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601316790}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1001 &1631423159
+=======
+--- !u!1001 &1727384990
+>>>>>>> Stashed changes
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4382,6 +4394,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 3696007233179127047, guid: c248f95ffea8b8543bc7ad0fffe0216d,
         type: 3}
       propertyPath: ShapeModule.m_Scale.x
@@ -4408,15 +4421,28 @@ PrefabInstance:
       value: WindEffect
       objectReference: {fileID: 0}
     - target: {fileID: 3696007233179127097, guid: c248f95ffea8b8543bc7ad0fffe0216d,
+=======
+    - target: {fileID: 2532220201360227501, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_Name
+      value: Directional Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+>>>>>>> Stashed changes
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 3696007233179127097, guid: c248f95ffea8b8543bc7ad0fffe0216d,
+=======
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+>>>>>>> Stashed changes
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 3696007233179127097, guid: c248f95ffea8b8543bc7ad0fffe0216d,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -4453,6 +4479,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3696007233179127097, guid: c248f95ffea8b8543bc7ad0fffe0216d,
+=======
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+>>>>>>> Stashed changes
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
@@ -4461,7 +4525,17 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
+<<<<<<< Updated upstream
   m_SourcePrefab: {fileID: 100100000, guid: c248f95ffea8b8543bc7ad0fffe0216d, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: c67832c3a559e7b479c51e7218bbe108, type: 3}
+--- !u!4 &1727384991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5272284722189750188, guid: c67832c3a559e7b479c51e7218bbe108,
+    type: 3}
+  m_PrefabInstance: {fileID: 1727384990}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!1 &1740113681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5890,6 +5964,16 @@ PrefabInstance:
       propertyPath: 'panels.Array.data[1]'
       value: 
       objectReference: {fileID: 518609353}
+    - target: {fileID: 4710817414004579226, guid: 2cced370f3dbb2049b9687ac925acb0c,
+        type: 3}
+      propertyPath: light
+      value: 
+      objectReference: {fileID: 1727384991}
+    - target: {fileID: 4710817414004579226, guid: 2cced370f3dbb2049b9687ac925acb0c,
+        type: 3}
+      propertyPath: lightSky
+      value: 
+      objectReference: {fileID: 1727384991}
     - target: {fileID: 7172900101679837461, guid: 2cced370f3dbb2049b9687ac925acb0c,
         type: 3}
       propertyPath: m_Name
@@ -6236,9 +6320,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 8712174559746965123}
-  - {fileID: 410087041}
   - {fileID: 1864449276}
   - {fileID: 42456010}
   - {fileID: 518609350}
   - {fileID: 586121074}
+<<<<<<< Updated upstream
   - {fileID: 1631423159}
+=======
+  - {fileID: 1727384990}
+>>>>>>> Stashed changes

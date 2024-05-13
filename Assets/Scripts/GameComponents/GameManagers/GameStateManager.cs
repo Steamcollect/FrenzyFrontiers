@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class GameStateManager : MonoBehaviour
     public GamePhase currentPhase = GamePhase.Building;
     public bool gameEnd = false;
     public AudioClip loseSound;
+
+    [SerializeField] private Transform lightSky;
+    [SerializeField] private float timeMouvingLight = 1f;
 
     public delegate void Gameplay();
     public static event Gameplay OnGameplay;
@@ -80,10 +84,10 @@ public class GameStateManager : MonoBehaviour
         switch (currentPhase)
         {
             case GamePhase.Fighting:
-                OnFight?.Invoke();
+                lightSky.DORotate(new(270f,lightSky.rotation.eulerAngles.y, lightSky.rotation.eulerAngles.z),timeMouvingLight).OnComplete(() => OnFight?.Invoke());
                 break;
             case GamePhase.Building:
-                OnBuild?.Invoke();
+                lightSky.transform.DORotate(new(90f, lightSky.rotation.eulerAngles.y, lightSky.rotation.eulerAngles.z), timeMouvingLight).OnComplete(()=> OnBuild?.Invoke());
                 break;
         }
     }
