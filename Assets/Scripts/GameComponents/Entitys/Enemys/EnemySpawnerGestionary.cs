@@ -62,17 +62,25 @@ public class EnemySpawnerGestionary : MonoBehaviour
     {
 
         currentNbMonsterSpawn -= 1;
-        if (currentNbMonsterSpawn <= 0)
-        {
-            StartCoroutine(Tool.Delay(() => 
-            {
-                AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
 
-                if (TutorialManager.instance.launchTutorial) StartCoroutine(TutorialManager.instance.OnNightEnd());
-                else gameStateManager.ChangePhaseToBuild();
+        if (currentNbMonsterSpawn > 1) return;
+
+        if( currentNbMonsterSpawn == 1)
+        {
+            foreach (var group in ennemyList)
+            {
+                foreach (var enemy in group.ennemyGroup) if (enemy != null) return; 
             }
-            , 0.5f));
         }
+
+        StartCoroutine(Tool.Delay(() =>
+        {
+            AudioManager.instance.PlayClipAt(winWaveSound, 0, Vector2.zero);
+
+            if (TutorialManager.instance.launchTutorial) StartCoroutine(TutorialManager.instance.OnNightEnd());
+            else gameStateManager.ChangePhaseToBuild();
+        }
+        , 0.5f));
         
     }
 

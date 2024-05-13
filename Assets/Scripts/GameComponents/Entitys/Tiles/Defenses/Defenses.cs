@@ -28,6 +28,8 @@ public abstract class Defenses : MonoBehaviour
         Collider hit = null;
         float minDist = 999;
 
+        finishRotate = true;
+
         Collider[] collidHit = Physics.OverlapSphere(transform.position, _stats.attackRange);
 
         foreach (Collider current in collidHit)
