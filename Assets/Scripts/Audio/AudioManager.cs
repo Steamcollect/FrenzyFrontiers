@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     public AudioMixer audioMixer;
     public AudioMixerGroup soundMixerGroup;
 
+    bool isChanging = false;
+
     SettingsManager settingsManager;
 
     public static AudioManager instance;
@@ -36,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (!audioSource.isPlaying && playlist.Length > 0)
+        if (!audioSource.isPlaying && playlist.Length > 0 && !isChanging)
         {
             currentMusicIndex = (currentMusicIndex + 1) % playlist.Length;
             StartCoroutine(ChangeMusic(playlist[currentMusicIndex]));
@@ -45,6 +47,7 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator ChangeMusic(AudioClip music)
     {
+        isChanging = true;
         float initialVolum = settingsManager.musicVolum;
         float volum = initialVolum;
 
@@ -69,6 +72,7 @@ public class AudioManager : MonoBehaviour
 
         volum = initialVolum;
         audioMixer.SetFloat("Music", LinearToDecibel(volum));
+        isChanging = false;
     }
     float LinearToDecibel(float volum)
     {

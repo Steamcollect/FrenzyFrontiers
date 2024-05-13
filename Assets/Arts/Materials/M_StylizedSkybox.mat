@@ -136,12 +136,12 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HorizonIntensity: 4.99
+    - _HorizonIntensity: 6
     - _Metallic: 0
     - _MoonOffset: -0.03
     - _MoonRadius: 0
     - _OcclusionStrength: 1
-    - _OffsetHorizon: -0.21
+    - _OffsetHorizon: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -154,7 +154,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _StarsCutoff: 0.342
     - _StarsSpeed: 0.154
-    - _SunRadius: 0.12
+    - _SunRadius: 0
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -167,8 +167,8 @@ Material:
     - _CloudColorNightMain: {r: 0, g: 0.019860985, b: 0.18867922, a: 1}
     - _CloudColorNightUnder: {r: 0.003921565, g: 0.066902705, b: 0.25882354, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DayBottomColor: {r: 0.41901034, g: 0.8301887, b: 0.7141303, a: 1}
-    - _DayTopColor: {r: 0.5218049, g: 0.58021796, b: 0.7735849, a: 1}
+    - _DayBottomColor: {r: 0.3615611, g: 0.54048955, b: 0.6132076, a: 1}
+    - _DayTopColor: {r: 0.31229973, g: 0.45216855, b: 0.5471698, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HorizonColorDay: {r: 0.5754717, g: 0.5739504, b: 0.5727572, a: 1}
     - _HorizonColorNight: {r: 0, g: 0, b: 0, a: 1}
