@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
     {
         if (!audioSource.isPlaying && playlist.Length > 0 && !isChanging)
         {
+            print((currentMusicIndex + 1) % playlist.Length);
             currentMusicIndex = (currentMusicIndex + 1) % playlist.Length;
             StartCoroutine(ChangeMusic(playlist[currentMusicIndex]));
         }
