@@ -218,7 +218,8 @@ public class EnemySpawnerGestionary : MonoBehaviour
                 currentMonsterWave += ennemyList[i].ennemyGroup.Length;
             }
         }
-        currentNbMonsterSpawn = ennemyList.Sum(o => o.ennemyGroup.Length);
+
+        for (int i = ennemyList.Count() -1; i >=0; i--) if (ennemyList[i].ennemyGroup.Length == 0) { ennemyList.RemoveAt(i); }
         
     }
 
@@ -233,12 +234,14 @@ public class EnemySpawnerGestionary : MonoBehaviour
             for (int j = 0; j < ennemyList[i].ennemyGroup.Length; ++j)
             {
                 enemy = enemiesWave.GetRandom();
-                if (enemy == null) { continue; }
+                if (enemy == null) { Debug.LogWarning("Error"!); continue; }
                 Tool.PickPowerWave(enemy);
                 tuple = Tuple.Create(i, j, enemy.prefab);
                 queueInstantiate.Enqueue(tuple);
             }
         }
+
+        currentNbMonsterSpawn = queueInstantiate.Count;
     }
 
     private IEnumerator InstantiateEnemies()
@@ -252,7 +255,7 @@ public class EnemySpawnerGestionary : MonoBehaviour
             ennemyList[obj.Item1].ennemyGroup[obj.Item2].transform.position = ennemyList[obj.Item1].centerSpawnPoint;
             ennemyList[obj.Item1].ennemyGroup[obj.Item2].SetActive(false);
 
-            yield return new WaitForSeconds(0.08f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

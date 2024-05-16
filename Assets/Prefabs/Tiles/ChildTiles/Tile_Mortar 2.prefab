@@ -459,7 +459,7 @@ MonoBehaviour:
   bulletPrefabs: {fileID: 6207360306954372420, guid: 62c16aa9b37e80543bf7385db16fb98b,
     type: 3}
   rotatePoint: {fileID: 8938905089882425493}
-  rotateTime: 0.005
+  rotateTime: 0.008
 --- !u!4 &7969428095722873295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5336697622086290804, guid: f67b78762572fd047af7d2bf53d26a76,
